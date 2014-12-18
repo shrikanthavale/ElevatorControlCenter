@@ -12,7 +12,7 @@ import at.fhooe.mc.test.ElevatorMock;
  * Dec 18, 2014
  *
  */
-public class ElevatorAdaptor implements IElevatorControls {
+public class ElevatorAdapter implements IElevatorControls {
 
 	/**
 	 * For time being referenced from mock object
