@@ -12,5 +12,8 @@ public class ElevatorController {
 	
 	private IElevatorControls iElevatorControlsReference;
 	
-
+	public ElevatorController() {
+		iElevatorControlsReference = new ElevatorAdaptor();
+	}
+	
 }

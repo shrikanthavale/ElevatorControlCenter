@@ -3,14 +3,19 @@
  */
 package at.fhooe.mc.controller;
 
+import at.fhooe.mc.test.ElevatorMock;
+
 /**
  * @author Metrics_Testing Team
  * Dec 18, 2014
  * 
  */
-public abstract class ElevatorAdaptor implements IElevatorControls {
+public class ElevatorAdaptor implements IElevatorControls {
 	
-	private IElevator iElevatorReference;
+	/**
+	 * For time being referenced from mock object
+	 */
+	private IElevator iElevatorReference = new ElevatorMock();
 
 	/* (non-Javadoc)
 	 * @see at.fhooe.mc.controller.IElevatorControls#getCommittedDirection(int)
@@ -118,6 +123,20 @@ public abstract class ElevatorAdaptor implements IElevatorControls {
 	public boolean[] getPressedButtonsFloorUp() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * @return the iElevatorReference
+	 */
+	public IElevator getiElevatorReference() {
+		return iElevatorReference;
+	}
+
+	/**
+	 * @param iElevatorReference the iElevatorReference to set
+	 */
+	public void setiElevatorReference(IElevator iElevatorReference) {
+		this.iElevatorReference = iElevatorReference;
 	}
 
 }
