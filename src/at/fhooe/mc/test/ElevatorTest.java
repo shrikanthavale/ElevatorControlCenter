@@ -3,7 +3,7 @@
  */
 package at.fhooe.mc.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,7 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * @author mypersonalpc
+ * @author Metrics_Testing Team
  * Dec 17, 2014
  * 
  */

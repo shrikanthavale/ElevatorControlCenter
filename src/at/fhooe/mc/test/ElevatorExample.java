@@ -1,7 +1,9 @@
-package at.fhooe.mc.model;
+package at.fhooe.mc.test;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+
+import at.fhooe.mc.model.IElevator;
 
 
 public class ElevatorExample {

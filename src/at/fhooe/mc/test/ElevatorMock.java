@@ -1,17 +1,19 @@
 /**
  * 
  */
-package at.fhooe.mc.model;
+package at.fhooe.mc.test;
 
 import java.rmi.RemoteException;
 import java.util.Observable;
+
+import at.fhooe.mc.model.IElevator;
 
 /**
  * @author Metrics_Testing Team
  * Dec 17, 2014
  * 
  */
-public class Elevator extends Observable implements IElevator {
+public class ElevatorMock extends Observable implements IElevator {
 
 	/* (non-Javadoc)
 	 * @see at.fhooe.mc.model.IElevator#getCommittedDirection(int)
