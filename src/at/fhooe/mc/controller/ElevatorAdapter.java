@@ -5,8 +5,6 @@ package at.fhooe.mc.controller;
 
 import java.rmi.RemoteException;
 
-import at.fhooe.mc.test.ElevatorMock;
-
 /**
  * @author Metrics_Testing Team
  * Dec 18, 2014
@@ -17,7 +15,7 @@ public class ElevatorAdapter implements IElevatorControls {
 	/**
 	 * For time being referenced from mock object
 	 */
-	private IElevator iElevatorReference = new ElevatorMock();
+	private IElevator iElevatorReference = null;
 
 	/* (non-Javadoc)
 	 * @see at.fhooe.mc.controller.IElevatorControls#getCommittedDirection(int)
@@ -83,12 +81,11 @@ public class ElevatorAdapter implements IElevatorControls {
 	}
 
 	/* (non-Javadoc)
-	 * @see at.fhooe.mc.controller.IElevatorControls#setServicesFloors(int, int, boolean)
+	 * @see at.fhooe.mc.conroller.IElevatorControls#getTarget(int)
 	 */
 	@Override
-	public void setServicesFloors(int elevatorNumber, int floor, boolean service) throws RemoteException {
-		iElevatorReference.setServicesFloors(elevatorNumber, floor, service);
-
+	public int getTarget(int elevatorNumber) throws RemoteException{
+		return iElevatorReference.getTarget(elevatorNumber);
 	}
 
 	/* (non-Javadoc)
@@ -153,9 +150,13 @@ public class ElevatorAdapter implements IElevatorControls {
 
 	/**
 	 * @param iElevatorReference the iElevatorReference to set
+	 * @throws NullPointerException
 	 */
-	public void setiElevatorReference(IElevator iElevatorReference) {
-		this.iElevatorReference = iElevatorReference;
+	public void setiElevatorReference(IElevator iElevatorReference) throws NullPointerException{
+		if (iElevatorReference == null)
+			throw new NullPointerException("Null reference.");
+		else
+			this.iElevatorReference = iElevatorReference;
 	}
 
 }

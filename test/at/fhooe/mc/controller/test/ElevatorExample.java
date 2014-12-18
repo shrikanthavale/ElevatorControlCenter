@@ -1,4 +1,4 @@
-package at.fhooe.mc.test;
+package at.fhooe.mc.controller.test;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;

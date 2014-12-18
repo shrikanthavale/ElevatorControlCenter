@@ -28,7 +28,6 @@ public interface IElevatorControls {
 	 */
 	public int getElevatorDoorStatus(int elevatorNumber)  throws RemoteException;
 
-
 	/**
 	 * Provides the current location of the specified elevator in feet from the bottom of the building.
 	 * @param elevatorNumber  - elevator number whose location is being retrieved
@@ -36,7 +35,6 @@ public interface IElevatorControls {
 	 * @throws RemoteException
 	 */
 	public int getElevatorPosition(int elevatorNumber) throws RemoteException;
-
 
 	/**
 	 * Provides the current speed of the specified elevator in feet per sec.
@@ -46,7 +44,6 @@ public interface IElevatorControls {
 	 */
 	public int getElevatorSpeed(int elevatorNumber) throws RemoteException;
 
-
 	/**
 	 * Retrieves the weight of passengers on the specified elevator.
 	 * @param elevatorNumber - elevator number whose service is being retrieved
@@ -54,7 +51,6 @@ public interface IElevatorControls {
 	 * @throws RemoteException
 	 */
 	public int getElevatorWeight(int elevatorNumber) throws RemoteException;
-
 
 	/**
 	 * Retrieves the maximum number of passengers that can fit on the specified elevator.
@@ -68,7 +64,7 @@ public interface IElevatorControls {
 	 * Retrieves the number of floors in the building.
 	 * @return total number of floors
 	 */
-	public int getFloorNum() throws java.rmi.RemoteException;
+	public int getFloorNum() throws RemoteException;
 
 	/**
 	 * Sets the committed direction of the specified elevator (up / down / uncommitted).
@@ -78,16 +74,12 @@ public interface IElevatorControls {
 	 */
 	public void setCommittedDirection(int elevatorNumber, int direction) throws RemoteException;
 
-
 	/**
-	 * Sets whether or not the specified elevator will service the specified floor (yes/no).
-	 * @param elevatorNumber elevator number whose service is being defined
-	 * @param floor floor whose service by the specified elevator is being set
-	 * @param service indicates whether the floor is serviced by the specified elevator (yes=true,no=false)
-	 * @throws RemoteException
+	 * Retrieves the floor target of the specified elevator.
+	 * @param elevatorNumber elevator number whose target floor is being retrieved
+	 * @return current floor target of the specified elevator
 	 */
-	public void setServicesFloors(int elevatorNumber, int floor, boolean service) throws RemoteException;
-
+	public int getTarget(int elevatorNumber) throws RemoteException;
 
 	/**
 	 * Sets the floor target of the specified elevator.

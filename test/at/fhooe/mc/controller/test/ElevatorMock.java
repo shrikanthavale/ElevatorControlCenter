@@ -1,7 +1,7 @@
 /**
- * 
+ *
  */
-package at.fhooe.mc.test;
+package at.fhooe.mc.controller.test;
 
 import java.rmi.RemoteException;
 import java.util.Random;
@@ -10,9 +10,12 @@ import at.fhooe.mc.controller.IElevator;
 
 /**
  * @author Metrics_Testing Team Dec 17, 2014
- * 
+ *
  */
 public class ElevatorMock implements IElevator, Runnable {
+
+	int[] directions = {ELEVATOR_DIRECTION_UP, ELEVATOR_DIRECTION_UNCOMMITTED, ELEVATOR_DIRECTION_UNCOMMITTED, ELEVATOR_DIRECTION_DOWN};
+	int[] targets = {1,4,2,3};
 
 	@Override
 	public void run() {
@@ -21,37 +24,21 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getCommittedDirection(int)
 	 */
 	@Override
 	public int getCommittedDirection(int elevatorNumber) throws RemoteException {
 
-		int elevatorDirection = ELEVATOR_DIRECTION_UNCOMMITTED;
-
-		switch (elevatorNumber) {
-		case 1:
-			elevatorDirection = ELEVATOR_DIRECTION_UP;
-			break;
-		case 2:
-			elevatorDirection = ELEVATOR_DIRECTION_UNCOMMITTED;
-			break;
-		case 3:
-			elevatorDirection = ELEVATOR_DIRECTION_UNCOMMITTED;
-			break;
-		case 4:
-			elevatorDirection = ELEVATOR_DIRECTION_DOWN;
-			break;
-		default:
-			break;
-		}
-
-		return elevatorDirection;
+		if (elevatorNumber < 1 || elevatorNumber > 4)
+			throw new RemoteException("Not existing elevator number.");
+		else
+			return directions[elevatorNumber-1];
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getElevatorAccel(int)
 	 */
 	@Override
@@ -80,7 +67,7 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getElevatorButton(int, int)
 	 */
 	@Override
@@ -104,11 +91,8 @@ public class ElevatorMock implements IElevator, Runnable {
 			case 4:
 				floorButtonInsideElevatorStatus = false;
 				break;
-			case 5:
-				floorButtonInsideElevatorStatus = true;
-				break;
 			default:
-				break;
+				throw new RemoteException("Not existing floor.");
 			}
 			break;
 		case 2:
@@ -117,47 +101,43 @@ public class ElevatorMock implements IElevator, Runnable {
 				floorButtonInsideElevatorStatus = true;
 				break;
 			case 2:
-				floorButtonInsideElevatorStatus = false;
+				floorButtonInsideElevatorStatus = true;
 				break;
 			case 3:
 				floorButtonInsideElevatorStatus = true;
 				break;
 			case 4:
-				floorButtonInsideElevatorStatus = false;
-				break;
-			case 5:
 				floorButtonInsideElevatorStatus = true;
 				break;
 			default:
-				break;
+				throw new RemoteException("Not existing floor.");
 			}
+			break;
 		case 3:
 			switch (floor) {
 			case 1:
-				floorButtonInsideElevatorStatus = true;
+				floorButtonInsideElevatorStatus = false;
 				break;
 			case 2:
 				floorButtonInsideElevatorStatus = false;
 				break;
 			case 3:
-				floorButtonInsideElevatorStatus = true;
+				floorButtonInsideElevatorStatus = false;
 				break;
 			case 4:
 				floorButtonInsideElevatorStatus = false;
 				break;
-			case 5:
-				floorButtonInsideElevatorStatus = true;
-				break;
 			default:
-				break;
+				throw new RemoteException("Not existing floor.");
 			}
+			break;
 		case 4:
 			switch (floor) {
 			case 1:
-				floorButtonInsideElevatorStatus = true;
+				floorButtonInsideElevatorStatus = false;
 				break;
 			case 2:
-				floorButtonInsideElevatorStatus = false;
+				floorButtonInsideElevatorStatus = true;
 				break;
 			case 3:
 				floorButtonInsideElevatorStatus = true;
@@ -165,14 +145,12 @@ public class ElevatorMock implements IElevator, Runnable {
 			case 4:
 				floorButtonInsideElevatorStatus = false;
 				break;
-			case 5:
-				floorButtonInsideElevatorStatus = true;
-				break;
 			default:
-				break;
+				throw new RemoteException("Not existing floor.");
 			}
-		default:
 			break;
+		default:
+			throw new RemoteException("Not existing elevator number.");
 		}
 
 		return floorButtonInsideElevatorStatus;
@@ -180,7 +158,7 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getElevatorDoorStatus(int)
 	 */
 	@Override
@@ -201,7 +179,7 @@ public class ElevatorMock implements IElevator, Runnable {
 			elevatorDoorStatus = ELEVATOR_DOORS_CLOSING;
 			break;
 		default:
-			break;
+			throw new RemoteException("Not existing elevator number.");
 		}
 
 		return elevatorDoorStatus;
@@ -209,7 +187,7 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getElevatorFloor(int)
 	 */
 	@Override
@@ -238,7 +216,7 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getElevatorNum()
 	 */
 	@Override
@@ -248,7 +226,7 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getElevatorPosition(int)
 	 */
 	@Override
@@ -257,19 +235,19 @@ public class ElevatorMock implements IElevator, Runnable {
 
 		switch (elevatorNumber) {
 		case 1:
-			elevatorPositionFromGround = randInt(100, 750);
+			elevatorPositionFromGround = 100;
 			break;
 		case 2:
-			elevatorPositionFromGround = randInt(100, 750);
+			elevatorPositionFromGround = 250;
 			break;
 		case 3:
-			elevatorPositionFromGround = randInt(100, 750);
+			elevatorPositionFromGround = 500;
 			break;
 		case 4:
-			elevatorPositionFromGround = randInt(100, 750);
+			elevatorPositionFromGround = 750;
 			break;
 		default:
-			break;
+			throw new RemoteException("Not existing elevator number.");
 		}
 
 		return elevatorPositionFromGround;
@@ -277,7 +255,7 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getElevatorSpeed(int)
 	 */
 	@Override
@@ -286,19 +264,19 @@ public class ElevatorMock implements IElevator, Runnable {
 
 		switch (elevatorNumber) {
 		case 1:
-			elevatorSpeed = randInt(30, 50);
+			elevatorSpeed = 30;
 			break;
 		case 2:
-			elevatorSpeed = randInt(30, 50);
+			elevatorSpeed = 0;
 			break;
 		case 3:
-			elevatorSpeed = randInt(30, 50);
+			elevatorSpeed = 10;
 			break;
 		case 4:
-			elevatorSpeed = randInt(30, 50);
+			elevatorSpeed = 50;
 			break;
 		default:
-			break;
+			throw new RemoteException("Not existing elevator number.");
 		}
 
 		return elevatorSpeed;
@@ -306,7 +284,7 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getElevatorWeight(int)
 	 */
 	@Override
@@ -315,19 +293,19 @@ public class ElevatorMock implements IElevator, Runnable {
 
 		switch (elevatorNumber) {
 		case 1:
-			elevatorWeight = randInt(500, 800);
+			elevatorWeight = 500;
 			break;
 		case 2:
-			elevatorWeight = randInt(500, 800);
+			elevatorWeight = 550;
 			break;
 		case 3:
-			elevatorWeight = randInt(500, 800);
+			elevatorWeight = 800;
 			break;
 		case 4:
-			elevatorWeight = randInt(500, 800);
+			elevatorWeight = 720;
 			break;
 		default:
-			break;
+			throw new RemoteException("Not existing elevator number.");
 		}
 
 		return elevatorWeight;
@@ -335,7 +313,7 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getElevatorCapacity(int)
 	 */
 	@Override
@@ -344,19 +322,19 @@ public class ElevatorMock implements IElevator, Runnable {
 
 		switch (elevatorNumber) {
 		case 1:
-			elevatorCapacity = randInt(0, 10);
+			elevatorCapacity = 0;
 			break;
 		case 2:
-			elevatorCapacity = randInt(0, 10);
+			elevatorCapacity = 5;
 			break;
 		case 3:
-			elevatorCapacity = randInt(0, 10);
+			elevatorCapacity = 7;
 			break;
 		case 4:
-			elevatorCapacity = randInt(0, 10);
+			elevatorCapacity = 10;
 			break;
 		default:
-			break;
+			throw new RemoteException("Not existing elevator number.");
 		}
 
 		return elevatorCapacity;
@@ -364,7 +342,7 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getFloorButtonDown(int)
 	 */
 	@Override
@@ -373,7 +351,7 @@ public class ElevatorMock implements IElevator, Runnable {
 
 		switch (floor) {
 		case 1:
-			floorButtonDownStatus = true;
+			floorButtonDownStatus = false;
 			break;
 		case 2:
 			floorButtonDownStatus = false;
@@ -383,9 +361,6 @@ public class ElevatorMock implements IElevator, Runnable {
 			break;
 		case 4:
 			floorButtonDownStatus = false;
-			break;
-		case 5:
-			floorButtonDownStatus = true;
 			break;
 		default:
 			break;
@@ -396,7 +371,7 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getFloorButtonUp(int)
 	 */
 	@Override
@@ -416,9 +391,6 @@ public class ElevatorMock implements IElevator, Runnable {
 		case 4:
 			floorButtonUpStatus = false;
 			break;
-		case 5:
-			floorButtonUpStatus = true;
-			break;
 		default:
 			break;
 		}
@@ -428,7 +400,7 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getFloorHeight()
 	 */
 	@Override
@@ -438,17 +410,17 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getFloorNum()
 	 */
 	@Override
 	public int getFloorNum() throws RemoteException {
-		return 5;
+		return 4;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getServicesFloors(int, int)
 	 */
 	@Override
@@ -547,28 +519,37 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getTarget(int)
 	 */
 	@Override
 	public int getTarget(int elevatorNumber) throws RemoteException {
-		return randInt(1, 5);
+		if (elevatorNumber < 1 || elevatorNumber > 4)
+			throw new RemoteException("Not existing elevator number.");
+		else
+			return targets[elevatorNumber-1];
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#setCommittedDirection(int, int)
 	 */
 	@Override
 	public void setCommittedDirection(int elevatorNumber, int direction)
 			throws RemoteException {
-
+		if (elevatorNumber < 1 || elevatorNumber > 4)
+			throw new RemoteException("Not existing elevator number.");
+		else
+			if (direction != ELEVATOR_DIRECTION_UP && direction != ELEVATOR_DIRECTION_DOWN && direction != ELEVATOR_DIRECTION_UNCOMMITTED)
+				throw new RemoteException("Not existing direction.");
+			else
+				directions[elevatorNumber-1] = direction;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#setServicesFloors(int, int, boolean)
 	 */
 	@Override
@@ -579,25 +560,31 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#setTarget(int, int)
 	 */
 	@Override
 	public void setTarget(int elevatorNumber, int target)
 			throws RemoteException {
-
+		if (elevatorNumber < 1 || elevatorNumber > 4)
+			throw new RemoteException("Not existing elevator number.");
+		else
+			if (target < 1 || target > 4)
+				throw new RemoteException("Not existing target.");
+			else
+				targets[elevatorNumber-1] = target;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see at.fhooe.mc.model.IElevator#getClockTick()
 	 */
 	@Override
 	public long getClockTick() throws RemoteException {
 		return randInt(50, 100);
 	}
-	
+
 	/**
 	 * Returns a psuedo-random number between min and max, inclusive.
 	 * The difference between min and max can be at most
@@ -619,5 +606,5 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	    return randomNum;
 	}
-	
+
 }

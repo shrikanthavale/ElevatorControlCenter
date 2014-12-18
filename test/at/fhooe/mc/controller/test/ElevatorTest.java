@@ -1,7 +1,7 @@
 /**
  * 
  */
-package at.fhooe.mc.test;
+package at.fhooe.mc.controller.test;
 
 import static org.junit.Assert.fail;
 
