@@ -6,7 +6,7 @@ package at.fhooe.mc.test;
 import java.rmi.RemoteException;
 import java.util.Random;
 
-import at.fhooe.mc.model.IElevator;
+import at.fhooe.mc.controller.IElevator;
 
 /**
  * @author Metrics_Testing Team Dec 17, 2014

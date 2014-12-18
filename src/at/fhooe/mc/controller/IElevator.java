@@ -1,4 +1,4 @@
-package at.fhooe.mc.model;
+package at.fhooe.mc.controller;
 
 /**
  * High-level interface to access and control the elevator system.
