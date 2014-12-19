@@ -1,9 +1,7 @@
-package at.fhooe.mc.controller.test;
+package sqelevator;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
-
-import at.fhooe.mc.controller.IElevator;
 
 
 public class ElevatorExample {

@@ -10,8 +10,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import sqelevator.IElevator;
 import at.fhooe.mc.controller.ElevatorAdapter;
-import at.fhooe.mc.controller.IElevator;
 
 public class ElevatorAdapterTest {
     private static ElevatorAdapter m_adapter = null;
