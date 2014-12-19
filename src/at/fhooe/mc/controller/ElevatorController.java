@@ -27,7 +27,6 @@ public class ElevatorController {
 			else
 				iElevatorControlsReference.setCommittedDirection(1, IElevatorControls.ELEVATOR_DIRECTION_DOWN);
 
-
 		} catch (RemoteException e) {
 			// TODO
 		}

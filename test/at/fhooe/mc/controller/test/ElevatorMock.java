@@ -558,15 +558,7 @@ public class ElevatorMock implements IElevator, Runnable {
 				throw new RemoteException("Not existing target.");
 			else{
 				targets[elevatorNumber-1] = target;
-
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
 				positions[elevatorNumber-1] = target;
-				directions[elevatorNumber-1] = ELEVATOR_DIRECTION_UNCOMMITTED;
 			}
 	}
 
