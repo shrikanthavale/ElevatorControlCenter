@@ -73,7 +73,7 @@ public class ElevatorUpdater extends Observable implements Runnable {
 			}
 
 			try {
-				Thread.sleep(500);
+				Thread.sleep(20);
 			} catch (InterruptedException e) {
 				// TODO
 				e.printStackTrace();

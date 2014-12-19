@@ -6,10 +6,15 @@ package at.fhooe.mc.view;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import sqelevator.IElevator;
 import at.fhooe.mc.controller.ElevatorAdapter;
 import at.fhooe.mc.controller.ElevatorUpdater;
 import at.fhooe.mc.controller.test.ElevatorMock;
@@ -52,7 +57,14 @@ public class ElevatorControllerGUI extends JFrame {
 		flowLayout = new JPanel(new GridLayout(2, 2));
 
 		ElevatorAdapter adapter = new ElevatorAdapter();
-		adapter.setiElevatorReference(new ElevatorMock());
+
+		try {
+			adapter.setiElevatorReference((IElevator) Naming.lookup("rmi://localhost/ElevatorSim"));
+		} catch (NullPointerException | MalformedURLException | RemoteException
+				| NotBoundException e) {
+			// TODO: show error message as dialog!
+			e.printStackTrace();
+		}
 
 		tableViewControlPanel = new TableViewControlPanel(adapter);
 		elevatorAttributesPanel = new ElevatorAttributesPanel();
