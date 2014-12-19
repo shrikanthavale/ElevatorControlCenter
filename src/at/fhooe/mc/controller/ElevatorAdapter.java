@@ -34,11 +34,11 @@ public class ElevatorAdapter implements IElevatorControls {
 	}
 
 	/* (non-Javadoc)
-	 * @see at.fhooe.mc.controller.IElevatorControls#getElevatorPosition(int)
+	 * @see at.fhooe.mc.controller.IElevatorControls#getElevatorFloor(int)
 	 */
 	@Override
-	public int getElevatorPosition(int elevatorNumber) throws RemoteException {
-		return iElevatorReference.getElevatorPosition(elevatorNumber);
+	public int getElevatorFloor(int elevatorNumber) throws RemoteException {
+		return iElevatorReference.getElevatorFloor(elevatorNumber);
 	}
 
 	/* (non-Javadoc)

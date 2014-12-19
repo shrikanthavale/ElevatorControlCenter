@@ -29,12 +29,12 @@ public interface IElevatorControls {
 	public int getElevatorDoorStatus(int elevatorNumber)  throws RemoteException;
 
 	/**
-	 * Provides the current location of the specified elevator in feet from the bottom of the building.
+	 * Provides the current location of the specified elevator to the nearest floor
 	 * @param elevatorNumber  - elevator number whose location is being retrieved
 	 * @return returns the location in feet of the indicated elevator from the bottom of the building
 	 * @throws RemoteException
 	 */
-	public int getElevatorPosition(int elevatorNumber) throws RemoteException;
+	public int getElevatorFloor(int elevatorNumber) throws RemoteException;
 
 	/**
 	 * Provides the current speed of the specified elevator in feet per sec.

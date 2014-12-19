@@ -32,25 +32,24 @@ public class TableViewControlPanel extends JPanel implements Observer {
 	private static final String ON_FLOOR_DOWN = "On Floor DOWN";
 	private static final String SET_TARGET = "Set Target";
 	private static final String CURRENT_POSITION = "Current Position";
-	private static final String TARGET = "Target";
+//	private static final String TARGET = "Target";
 
-	private JCheckBox inElFloor1CB, inElFloor2CB, inElFloor3CB, inElFloor4CB,
-			inElFloor5CB;
+	private JCheckBox inElFloor1CB, inElFloor2CB, inElFloor3CB, inElFloor4CB;
 	private JCheckBox onFlFloor1UpCB, onFlFloor2UpCB, onFlFloor3UpCB,
-			onFlFloor4UpCB, onFlFloor5UpCB;
-	private JCheckBox onFlFloor5DownCB, onFlFloor4DownCB, onFlFloor3DownCB,
+			onFlFloor4UpCB;
+	private JCheckBox onFlFloor4DownCB, onFlFloor3DownCB,
 			onFlFloor2DownCB, onFlFloor1DownCB;
 	private JRadioButton targetFloor1RB, targetFloor2RB, targetFloor3RB,
-			targetFloor4RB, targetFloor5RB;
+			targetFloor4RB;
 	private JRadioButton currrentFloor1RB, currrentFloor2RB, currrentFloor3RB,
-			currrentFloor4RB, currrentFloor5RB;
+			currrentFloor4RB;
 	private ButtonGroup groupTargetRBs, groupCurrentFloorRBs;
 
 	/**
 	 *
 	 */
 	public TableViewControlPanel() {
-		super.setLayout(new GridLayout(6, 6));
+		super.setLayout(new GridLayout(5, 6));
 		this.setSize(400, 300);
 		initTableEntries();
 	}
@@ -62,7 +61,7 @@ public class TableViewControlPanel extends JPanel implements Observer {
 		setCaptions();
 		groupTargetRBs = new ButtonGroup();
 		groupCurrentFloorRBs = new ButtonGroup();
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 4; i++) {
 			int floor = i + 1;
 			addFloor(floor);
 		}
@@ -95,11 +94,6 @@ public class TableViewControlPanel extends JPanel implements Observer {
 		case 4:
 			initRow(inElFloor4CB, onFlFloor4UpCB, onFlFloor4DownCB,
 					targetFloor4RB, currrentFloor4RB, floor);
-
-			break;
-		case 5:
-			initRow(inElFloor5CB, onFlFloor5UpCB, onFlFloor5DownCB,
-					targetFloor5RB, currrentFloor5RB, floor);
 
 			break;
 		}
@@ -185,7 +179,7 @@ public class TableViewControlPanel extends JPanel implements Observer {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override

@@ -16,6 +16,7 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	int[] directions = {ELEVATOR_DIRECTION_UP, ELEVATOR_DIRECTION_UNCOMMITTED, ELEVATOR_DIRECTION_UNCOMMITTED, ELEVATOR_DIRECTION_DOWN};
 	int[] targets = {1,4,2,3};
+	int[] positions = {0,0,0,0};
 
 	@Override
 	public void run() {
@@ -192,26 +193,10 @@ public class ElevatorMock implements IElevator, Runnable {
 	 */
 	@Override
 	public int getElevatorFloor(int elevatorNumber) throws RemoteException {
-		int floorClosetToEleveator = 0;
-
-		switch (elevatorNumber) {
-		case 1:
-			floorClosetToEleveator = randInt(1, 5);
-			break;
-		case 2:
-			floorClosetToEleveator = randInt(1, 5);
-			break;
-		case 3:
-			floorClosetToEleveator = randInt(1, 5);
-			break;
-		case 4:
-			floorClosetToEleveator = randInt(1, 5);
-			break;
-		default:
-			break;
-		}
-
-		return floorClosetToEleveator;
+		if (elevatorNumber < 1 || elevatorNumber > 4)
+			throw new RemoteException("Not existing elevator number.");
+		else
+			return positions[elevatorNumber-1];
 	}
 
 	/*
@@ -571,8 +556,10 @@ public class ElevatorMock implements IElevator, Runnable {
 		else
 			if (target < 1 || target > 4)
 				throw new RemoteException("Not existing target.");
-			else
+			else{
 				targets[elevatorNumber-1] = target;
+				positions[elevatorNumber-1] = target;
+			}
 	}
 
 	/*

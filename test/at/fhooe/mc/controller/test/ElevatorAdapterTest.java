@@ -88,17 +88,17 @@ public class ElevatorAdapterTest {
     }
 
     @Test
-    public void testGetElevatorPosition(){
+    public void testGetElevatorFloor(){
     	try{
-    		assertEquals(100, m_adapter.getElevatorPosition(1));
-    		assertEquals(250, m_adapter.getElevatorPosition(2));
-    		assertEquals(500, m_adapter.getElevatorPosition(3));
-    		assertEquals(750, m_adapter.getElevatorPosition(4));
+    		assertEquals(0, m_adapter.getElevatorFloor(1));
+    		assertEquals(1, m_adapter.getElevatorFloor(2));
+    		assertEquals(5, m_adapter.getElevatorFloor(3));
+    		assertEquals(3, m_adapter.getElevatorFloor(4));
     	} catch (RemoteException e){
     		fail();
     	}
     	try{
-    		m_adapter.getElevatorPosition(5);
+    		m_adapter.getElevatorFloor(5);
     		fail();
     	} catch (RemoteException e){
     		assertEquals("Not existing elevator number.",e.getMessage());
