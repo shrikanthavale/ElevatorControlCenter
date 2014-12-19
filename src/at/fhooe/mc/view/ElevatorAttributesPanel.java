@@ -206,11 +206,8 @@ public class ElevatorAttributesPanel extends JPanel implements Observer {
 			case 1:
 				lblDirection.setText(ELEVATOR_DIRECTION_DOWN);
 				break;
-			case 2:
-				lblDirection.setText(ELEVATOR_DIRECTION_NOT_SET);
-				break;
 			default:
-				lblDirection.setText("Default");
+				lblDirection.setText(ELEVATOR_DIRECTION_NOT_SET);
 			}
 
 			lblSpeed.setText(""+elevator.getSpeed());
