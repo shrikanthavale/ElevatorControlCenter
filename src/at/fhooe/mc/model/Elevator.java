@@ -152,7 +152,10 @@ public class Elevator {
 	 * @param pressedButtonsElevator the pressedButtonsElevator to set
 	 */
 	public void setPressedButtonsElevator(boolean[] pressedButtonsElevator) {
-		this.pressedButtonsElevator = pressedButtonsElevator;
+		this.pressedButtonsElevator = new boolean[pressedButtonsElevator.length];
+		for (int i = 0; i < pressedButtonsElevator.length; i++){
+			this.pressedButtonsElevator[i] = pressedButtonsElevator[i];
+		}
 	}
 
 	/**
@@ -166,7 +169,10 @@ public class Elevator {
 	 * @param pressedButtonsFloorDown the pressedButtonsFloorDown to set
 	 */
 	public void setPressedButtonsFloorDown(boolean[] pressedButtonsFloorDown) {
-		this.pressedButtonsFloorDown = pressedButtonsFloorDown;
+		this.pressedButtonsFloorDown = new boolean[pressedButtonsFloorDown.length];
+		for (int i = 0; i < pressedButtonsFloorDown.length; i++){
+			this.pressedButtonsFloorDown[i] = pressedButtonsFloorDown[i];
+		}
 	}
 
 	/**
@@ -180,7 +186,10 @@ public class Elevator {
 	 * @param pressedButtonsFloorUp the pressedButtonsFloorUp to set
 	 */
 	public void setPressedButtonsFloorUp(boolean[] pressedButtonsFloorUp) {
-		this.pressedButtonsFloorUp = pressedButtonsFloorUp;
+		this.pressedButtonsFloorUp = new boolean[pressedButtonsFloorUp.length];
+		for (int i = 0; i < pressedButtonsFloorUp.length; i++){
+			this.pressedButtonsFloorUp[i] = pressedButtonsFloorUp[i];
+		}
 	}
 
 	public int getTarget() {

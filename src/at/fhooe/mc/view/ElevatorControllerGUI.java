@@ -26,10 +26,11 @@ public class ElevatorControllerGUI extends JFrame {
 	private ElevatorAttributesPanel elevatorAttributesPanel;
 	private ElevatorViewPanel elevatorViewPanel;
 	private JPanel flowLayout;
-	private ElevatorUpdater elevatorUpdater;
+	private static ElevatorUpdater elevatorUpdater;
 
 	public ElevatorControllerGUI() {
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter(){
 			@Override
 			public void windowClosing(WindowEvent we) {
@@ -50,7 +51,10 @@ public class ElevatorControllerGUI extends JFrame {
 	private void initPanels() {
 		flowLayout = new JPanel(new GridLayout(2, 2));
 
-		tableViewControlPanel = new TableViewControlPanel();
+		ElevatorAdapter adapter = new ElevatorAdapter();
+		adapter.setiElevatorReference(new ElevatorMock());
+
+		tableViewControlPanel = new TableViewControlPanel(adapter);
 		elevatorAttributesPanel = new ElevatorAttributesPanel();
 		elevatorViewPanel = new ElevatorViewPanel();
 
@@ -59,13 +63,12 @@ public class ElevatorControllerGUI extends JFrame {
 		flowLayout.add(elevatorAttributesPanel);
 		this.add(flowLayout);
 
-		ElevatorAdapter adapter = new ElevatorAdapter();
-		adapter.setiElevatorReference(new ElevatorMock());
 		elevatorUpdater = new ElevatorUpdater(adapter);
 		elevatorUpdater.addObserver(elevatorAttributesPanel);
 		elevatorUpdater.addObserver(elevatorViewPanel);
 		elevatorUpdater.addObserver(tableViewControlPanel);
-		elevatorUpdater.run();
+
+		new Thread(elevatorUpdater).start();
 	}
 
 	public static void main(String[] args) {

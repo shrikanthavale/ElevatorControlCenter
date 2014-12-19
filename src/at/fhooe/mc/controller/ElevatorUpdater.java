@@ -38,6 +38,11 @@ public class ElevatorUpdater extends Observable implements Runnable {
 		super.setChanged();
 	}
 
+	@Override
+	public void notifyObservers(){
+		super.notifyObservers(elevator);
+	}
+
 	public Elevator getElevator(){
 		return elevator;
 	}
@@ -62,6 +67,7 @@ public class ElevatorUpdater extends Observable implements Runnable {
 				elevator.setTarget(adapter.getTarget(1));
 
 				setChanged();
+				notifyObservers();
 			} catch (RemoteException e) {
 				// TODO
 			}
