@@ -5,6 +5,8 @@ package at.fhooe.mc.controller;
 
 import java.rmi.RemoteException;
 
+import sqelevator.IElevator;
+
 /**
  * @author Metrics_Testing Team
  * Dec 18, 2014
@@ -129,5 +131,16 @@ public interface IElevatorControls {
 	 */
 	public boolean[] getPressedButtonsFloorUp() throws RemoteException;
 
+	
+	/**
+	 * @return the iElevatorReference
+	 */
+	public IElevator getiElevatorReference();
+
+	/**
+	 * @param iElevatorReference the iElevatorReference to set
+	 * @throws NullPointerException
+	 */
+	public void setiElevatorReference(IElevator iElevatorReference) throws NullPointerException;
 
 }

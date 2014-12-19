@@ -12,16 +12,11 @@ import sqelevator.IElevator;
  * @author Metrics_Testing Team Dec 17, 2014
  *
  */
-public class ElevatorMock implements IElevator, Runnable {
+public class ElevatorMock implements IElevator {
 
 	int[] directions = {ELEVATOR_DIRECTION_UP, ELEVATOR_DIRECTION_UNCOMMITTED, ELEVATOR_DIRECTION_UNCOMMITTED, ELEVATOR_DIRECTION_DOWN};
 	int[] targets = {0,3,2,1};
 	int[] positions = {0,0,0,0};
-
-	@Override
-	public void run() {
-
-	}
 
 	/*
 	 * (non-Javadoc)
