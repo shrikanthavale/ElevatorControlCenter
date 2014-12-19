@@ -1,20 +1,20 @@
 /**
- * 
+ *
  */
 package at.fhooe.mc.model;
 
 /**
  * @author Metrics_Testing Team
  * Dec 18, 2014
- * 
+ *
  */
 public class Elevator {
 
 	/**
-	 * Current direction of the elevator 
+	 * Current direction of the elevator
 	 */
 	private int currentDirection;
-	
+
 	/**
 	 * door status of elevator (like opening, closing, closed , open)
 	 */
@@ -24,36 +24,38 @@ public class Elevator {
 	 * position of the elevator
 	 */
 	private int position;
-	
+
 	/**
 	 * speed of the elevator in feet per second
 	 */
 	private int speed;
-	
+
 	/**
 	 * total weight of persons in the weight
 	 */
 	private int weight;
-	
+
 	/**
 	 * number of persons that can fit in elevator
 	 */
 	private int capacity;
-	
+
 	/**
 	 * boolean status of all the buttons pressed inside elevator
 	 */
 	private boolean[] pressedButtonsElevator;
-	
+
 	/**
 	 * boolean status of the Down button pressed on all the floors
 	 */
 	private boolean[]pressedButtonsFloorDown;
-	
+
 	/**
 	 * boolean status of the Up button pressed on all the floors
 	 */
 	 private boolean[] pressedButtonsFloorUp;
+
+	 private int target;
 
 	/**
 	 * @return the currentDirection
@@ -179,6 +181,14 @@ public class Elevator {
 	 */
 	public void setPressedButtonsFloorUp(boolean[] pressedButtonsFloorUp) {
 		this.pressedButtonsFloorUp = pressedButtonsFloorUp;
+	}
+
+	public int getTarget() {
+		return target;
+	}
+
+	public void setTarget(int target) {
+		this.target = target;
 	}
 
 }

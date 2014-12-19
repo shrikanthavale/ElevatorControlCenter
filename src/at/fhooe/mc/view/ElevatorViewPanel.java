@@ -8,7 +8,7 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
-import at.fhooe.mc.model.Elevator;
+//import at.fhooe.mc.model.Elevator;
 
 /**
  * @author Viktor Baier S1310455001
@@ -25,14 +25,14 @@ public class ElevatorViewPanel extends JPanel implements Observer {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
 	public void update(Observable arg0, Object _object) {
-		if (_object instanceof Elevator) {
-			Elevator elevator = (Elevator) _object;
-		}
+//		if (_object instanceof Elevator) {
+//			Elevator elevator = (Elevator) _object;
+//		}
 
 	}
 

@@ -4,9 +4,15 @@
 package at.fhooe.mc.view;
 
 import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import at.fhooe.mc.controller.ElevatorAdapter;
+import at.fhooe.mc.controller.ElevatorUpdater;
+import at.fhooe.mc.controller.test.ElevatorMock;
 
 /**
  * @author Viktor Baier S1310455001
@@ -20,12 +26,21 @@ public class ElevatorControllerGUI extends JFrame {
 	private ElevatorAttributesPanel elevatorAttributesPanel;
 	private ElevatorViewPanel elevatorViewPanel;
 	private JPanel flowLayout;
+	private ElevatorUpdater elevatorUpdater;
 
 	public ElevatorControllerGUI() {
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter(){
+			@Override
+			public void windowClosing(WindowEvent we) {
+				elevatorUpdater.setLooping(false);
+				System.exit(0);
+			}
+		});
 		this.setSize(1200, 800);
 		this.setTitle("Elevator Control");
 		initPanels();
+
 		this.setVisible(true);
 	}
 
@@ -44,6 +59,13 @@ public class ElevatorControllerGUI extends JFrame {
 		flowLayout.add(elevatorAttributesPanel);
 		this.add(flowLayout);
 
+		ElevatorAdapter adapter = new ElevatorAdapter();
+		adapter.setiElevatorReference(new ElevatorMock());
+		elevatorUpdater = new ElevatorUpdater(adapter);
+		elevatorUpdater.addObserver(elevatorAttributesPanel);
+		elevatorUpdater.addObserver(elevatorViewPanel);
+		elevatorUpdater.addObserver(tableViewControlPanel);
+		elevatorUpdater.run();
 	}
 
 	public static void main(String[] args) {

@@ -12,6 +12,7 @@ import java.util.Observer;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
@@ -41,8 +42,8 @@ public class TableViewControlPanel extends JPanel implements Observer {
 			onFlFloor2DownCB, onFlFloor1DownCB;
 	private JRadioButton targetFloor1RB, targetFloor2RB, targetFloor3RB,
 			targetFloor4RB;
-	private JRadioButton currrentFloor1RB, currrentFloor2RB, currrentFloor3RB,
-			currrentFloor4RB;
+	private JRadioButton currentFloor1RB, currentFloor2RB, currentFloor3RB,
+			currentFloor4RB;
 	private ButtonGroup groupTargetRBs, groupCurrentFloorRBs;
 
 	/**
@@ -78,22 +79,22 @@ public class TableViewControlPanel extends JPanel implements Observer {
 		case 1:
 
 			initRow(inElFloor1CB, onFlFloor1UpCB, onFlFloor1DownCB,
-					targetFloor1RB, currrentFloor1RB, floor);
+					targetFloor1RB, currentFloor1RB, floor);
 
 			break;
 		case 2:
 			initRow(inElFloor2CB, onFlFloor2UpCB, onFlFloor2DownCB,
-					targetFloor2RB, currrentFloor2RB, floor);
+					targetFloor2RB, currentFloor2RB, floor);
 
 			break;
 		case 3:
 			initRow(inElFloor3CB, onFlFloor3UpCB, onFlFloor3DownCB,
-					targetFloor3RB, currrentFloor3RB, floor);
+					targetFloor3RB, currentFloor3RB, floor);
 
 			break;
 		case 4:
 			initRow(inElFloor4CB, onFlFloor4UpCB, onFlFloor4DownCB,
-					targetFloor4RB, currrentFloor4RB, floor);
+					targetFloor4RB, currentFloor4RB, floor);
 
 			break;
 		}
@@ -186,6 +187,40 @@ public class TableViewControlPanel extends JPanel implements Observer {
 	public void update(Observable o, Object _object) {
 		if (_object instanceof Elevator) {
 			Elevator elevator = (Elevator) _object;
+
+			inElFloor1CB.setSelected(elevator.getPressedButtonsElevator()[0]);
+			inElFloor2CB.setSelected(elevator.getPressedButtonsElevator()[1]);
+			inElFloor3CB.setSelected(elevator.getPressedButtonsElevator()[2]);
+			inElFloor4CB.setSelected(elevator.getPressedButtonsElevator()[3]);
+
+			onFlFloor1UpCB.setSelected(elevator.getPressedButtonsFloorUp()[0]);
+			onFlFloor2UpCB.setSelected(elevator.getPressedButtonsFloorUp()[1]);
+			onFlFloor3UpCB.setSelected(elevator.getPressedButtonsFloorUp()[2]);
+			onFlFloor4UpCB.setSelected(elevator.getPressedButtonsFloorUp()[3]);
+
+			onFlFloor1DownCB.setSelected(elevator.getPressedButtonsFloorDown()[0]);
+			onFlFloor2DownCB.setSelected(elevator.getPressedButtonsFloorDown()[1]);
+			onFlFloor3DownCB.setSelected(elevator.getPressedButtonsFloorDown()[2]);
+			onFlFloor4DownCB.setSelected(elevator.getPressedButtonsFloorDown()[3]);
+
+			switch(elevator.getPosition()){
+			case 1:
+				currentFloor1RB.setSelected(true);
+				break;
+			case 2:
+				currentFloor2RB.setSelected(true);
+				break;
+			case 3:
+				currentFloor3RB.setSelected(true);
+				break;
+			case 4:
+				currentFloor4RB.setSelected(true);
+				break;
+			default:
+				currentFloor1RB.setSelected(true);
+			}
+		} else {
+			JOptionPane.showMessageDialog(this, "Elevator was null");
 		}
 	}
 

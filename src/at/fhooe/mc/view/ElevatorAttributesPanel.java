@@ -24,10 +24,11 @@ public class ElevatorAttributesPanel extends JPanel implements Observer {
 	private static final String DOOR_STATUS_OPEN = "open";
 	private static final String DOOR_STATUS_OPENING = "opening";
 	private static final String DOOR_STATUS_CLOSED = "closed";
+	private static final String DOOR_STATUS_CLOSING = "closing";
 
 	private static final String ELEVATOR_MODE = "Mode: ";
 	private static final String MANUAL = "manual";
-	private static final String AUTOMATIC = "automatic";
+//	private static final String AUTOMATIC = "automatic";
 	private static final String ELEVATOR_DIRECTION = "Elevator Direction: ";
 	private static final String ELEVATOR_DIRECTION_UP = "up";
 	private static final String ELEVATOR_DIRECTION_DOWN = "down";
@@ -42,6 +43,8 @@ public class ElevatorAttributesPanel extends JPanel implements Observer {
 	private String elevatorSpeed = "";
 	private String payload = "";
 
+	private JLabel lblTarget, lblDoorState, lblMode, lblDirection, lblSpeed, lblPayload;
+
 	public ElevatorAttributesPanel() {
 		setLayout(new GridLayout(6, 2));
 		initTableEntries();
@@ -53,22 +56,28 @@ public class ElevatorAttributesPanel extends JPanel implements Observer {
 	 */
 	private void initTableEntries() {
 		add(new JLabel(TARGET));
-		add(new JLabel(targetFloor));
+		lblTarget = new JLabel();
+		add(lblTarget);
 
 		add(new JLabel(DOOR_STATUS));
-		add(new JLabel(doorState));
+		lblDoorState = new JLabel();
+		add(lblDoorState);
 
 		add(new JLabel(ELEVATOR_MODE));
-		add(new JLabel(mode));
+		lblMode = new JLabel(MANUAL);
+		add(lblMode);
 
 		add(new JLabel(ELEVATOR_DIRECTION));
-		add(new JLabel(elevatorDirection));
+		lblDirection = new JLabel();
+		add(lblDirection);
 
 		add(new JLabel(ELEVATOR_SPEED));
-		add(new JLabel(elevatorSpeed));
+		lblSpeed = new JLabel();
+		add(lblSpeed);
 
 		add(new JLabel(PAYLOAD));
-		add(new JLabel(targetFloor));
+		lblPayload = new JLabel();
+		add(lblPayload);
 
 	}
 
@@ -164,13 +173,48 @@ public class ElevatorAttributesPanel extends JPanel implements Observer {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
 	public void update(Observable o, Object _object) {
 		if (_object instanceof Elevator) {
 			Elevator elevator = (Elevator) _object;
+
+			lblTarget.setText(""+elevator.getTarget());
+			switch(elevator.getDoorStatus()){
+			case 1:
+				lblDoorState.setText(DOOR_STATUS_OPEN);
+				break;
+			case 2:
+				lblDoorState.setText(DOOR_STATUS_CLOSED);
+				break;
+			case 3:
+				lblDoorState.setText(DOOR_STATUS_OPENING);
+				break;
+			case 4:
+				lblDoorState.setText(DOOR_STATUS_CLOSING);
+				break;
+			default:
+				lblDoorState.setText("Default");
+			}
+
+			switch(elevator.getCurrentDirection()){
+			case 0:
+				lblDirection.setText(ELEVATOR_DIRECTION_UP);
+				break;
+			case 1:
+				lblDirection.setText(ELEVATOR_DIRECTION_DOWN);
+				break;
+			case 2:
+				lblDirection.setText(ELEVATOR_DIRECTION_NOT_SET);
+				break;
+			default:
+				lblDirection.setText("Default");
+			}
+
+			lblSpeed.setText(""+elevator.getSpeed());
+			lblPayload.setText(""+elevator.getWeight());
 		}
 	}
 

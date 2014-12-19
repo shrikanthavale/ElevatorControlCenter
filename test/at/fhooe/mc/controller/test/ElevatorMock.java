@@ -16,7 +16,7 @@ public class ElevatorMock implements IElevator, Runnable {
 
 	int[] directions = {ELEVATOR_DIRECTION_UP, ELEVATOR_DIRECTION_UNCOMMITTED, ELEVATOR_DIRECTION_UNCOMMITTED, ELEVATOR_DIRECTION_DOWN};
 	int[] targets = {1,4,2,3};
-	int[] positions = {0,0,0,0};
+	int[] positions = {1,1,1,1};
 
 	@Override
 	public void run() {

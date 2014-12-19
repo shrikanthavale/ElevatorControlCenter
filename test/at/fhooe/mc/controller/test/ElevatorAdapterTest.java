@@ -90,10 +90,10 @@ public class ElevatorAdapterTest {
     @Test
     public void testGetElevatorFloor(){
     	try{
-    		assertEquals(0, m_adapter.getElevatorFloor(1));
+    		assertEquals(1, m_adapter.getElevatorFloor(1));
     		assertEquals(1, m_adapter.getElevatorFloor(2));
-    		assertEquals(5, m_adapter.getElevatorFloor(3));
-    		assertEquals(3, m_adapter.getElevatorFloor(4));
+    		assertEquals(1, m_adapter.getElevatorFloor(3));
+    		assertEquals(1, m_adapter.getElevatorFloor(4));
     	} catch (RemoteException e){
     		fail();
     	}
