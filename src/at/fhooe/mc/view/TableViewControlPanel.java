@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import at.fhooe.mc.controller.ElevatorAdapter;
 import at.fhooe.mc.controller.ElevatorController;
 import at.fhooe.mc.model.Elevator;
 
@@ -54,11 +53,11 @@ public class TableViewControlPanel extends JPanel implements Observer,
 	/**
 	 *
 	 */
-	public TableViewControlPanel(ElevatorAdapter _adapter) {
+	public TableViewControlPanel(ElevatorController controller) {
 		super.setLayout(new GridLayout(5, 6));
 		this.setSize(400, 300);
 		initTableEntries();
-		elevatorController = new ElevatorController(_adapter);
+		elevatorController = controller;
 	}
 
 	/**
@@ -208,7 +207,7 @@ public class TableViewControlPanel extends JPanel implements Observer,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override

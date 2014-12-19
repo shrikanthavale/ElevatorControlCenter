@@ -3,19 +3,25 @@
  */
 package at.fhooe.mc.view;
 
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
+import at.fhooe.mc.controller.ElevatorController;
 import at.fhooe.mc.model.Elevator;
 
 /**
  * @author Viktor Baier S1310455001
  */
-public class ElevatorAttributesPanel extends JPanel implements Observer {
+public class ElevatorAttributesPanel extends JPanel implements Observer, ActionListener {
 
 	private static final long serialVersionUID = 9111311437016062774L;
 
@@ -28,7 +34,7 @@ public class ElevatorAttributesPanel extends JPanel implements Observer {
 
 	private static final String ELEVATOR_MODE = "Mode: ";
 	private static final String MANUAL = "manual";
-//	private static final String AUTOMATIC = "automatic";
+	private static final String AUTOMATIC = "automatic";
 	private static final String ELEVATOR_DIRECTION = "Elevator Direction: ";
 	private static final String ELEVATOR_DIRECTION_UP = "up";
 	private static final String ELEVATOR_DIRECTION_DOWN = "down";
@@ -43,12 +49,16 @@ public class ElevatorAttributesPanel extends JPanel implements Observer {
 	private String elevatorSpeed = "";
 	private String payload = "";
 
-	private JLabel lblTarget, lblDoorState, lblMode, lblDirection, lblSpeed, lblPayload;
+	private JLabel lblTarget, lblDoorState, lblDirection, lblSpeed, lblPayload;
+	private JRadioButton cheManual, cheAutomatic;
+	private ButtonGroup bgrMode;
 
-	public ElevatorAttributesPanel() {
+	private ElevatorController elevatorController;
+
+	public ElevatorAttributesPanel(ElevatorController controller) {
 		setLayout(new GridLayout(6, 2));
 		initTableEntries();
-
+		elevatorController = controller;
 	}
 
 	/**
@@ -64,8 +74,21 @@ public class ElevatorAttributesPanel extends JPanel implements Observer {
 		add(lblDoorState);
 
 		add(new JLabel(ELEVATOR_MODE));
-		lblMode = new JLabel(MANUAL);
-		add(lblMode);
+		JPanel p = new JPanel();
+		p.setLayout(new FlowLayout());
+		bgrMode = new ButtonGroup();
+		cheManual = new JRadioButton();
+		cheManual.addActionListener(this);
+		cheManual.setText(MANUAL);
+		cheManual.setSelected(true);
+		bgrMode.add(cheManual);
+		p.add(cheManual);
+		cheAutomatic = new JRadioButton();
+		cheAutomatic.addActionListener(this);
+		cheAutomatic.setText(AUTOMATIC);
+		bgrMode.add(cheAutomatic);
+		p.add(cheAutomatic);
+		add(p);
 
 		add(new JLabel(ELEVATOR_DIRECTION));
 		lblDirection = new JLabel();
@@ -213,6 +236,21 @@ public class ElevatorAttributesPanel extends JPanel implements Observer {
 			lblSpeed.setText(""+elevator.getSpeed());
 			lblPayload.setText(""+elevator.getWeight());
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() instanceof JRadioButton){
+			JRadioButton button = (JRadioButton)arg0.getSource();
+
+			if (button.isSelected()){
+				if (button.equals(cheManual))
+					elevatorController.setAutomaticMode(false);
+				if (button.equals(cheAutomatic))
+					elevatorController.setAutomaticMode(true);
+			}
+		}
+
 	}
 
 }

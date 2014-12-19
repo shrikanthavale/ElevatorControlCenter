@@ -24,7 +24,7 @@ public class ElevatorAdapter implements IElevatorControls {
 	 */
 	@Override
 	public int getCommittedDirection(int elevatorNumber) throws RemoteException {
-		return iElevatorReference.getCommittedDirection(elevatorNumber);
+		return iElevatorReference.getCommittedDirection(elevatorNumber-1);
 	}
 
 	/* (non-Javadoc)
@@ -32,7 +32,7 @@ public class ElevatorAdapter implements IElevatorControls {
 	 */
 	@Override
 	public int getElevatorDoorStatus(int elevatorNumber) throws RemoteException {
-		return iElevatorReference.getElevatorDoorStatus(elevatorNumber);
+		return iElevatorReference.getElevatorDoorStatus(elevatorNumber-1);
 	}
 
 	/* (non-Javadoc)
@@ -40,7 +40,7 @@ public class ElevatorAdapter implements IElevatorControls {
 	 */
 	@Override
 	public int getElevatorFloor(int elevatorNumber) throws RemoteException {
-		return iElevatorReference.getElevatorFloor(elevatorNumber);
+		return iElevatorReference.getElevatorFloor(elevatorNumber-1);
 	}
 
 	/* (non-Javadoc)
@@ -48,7 +48,7 @@ public class ElevatorAdapter implements IElevatorControls {
 	 */
 	@Override
 	public int getElevatorSpeed(int elevatorNumber) throws RemoteException{
-		return iElevatorReference.getElevatorSpeed(elevatorNumber);
+		return iElevatorReference.getElevatorSpeed(elevatorNumber-1);
 	}
 
 	/* (non-Javadoc)
@@ -56,7 +56,7 @@ public class ElevatorAdapter implements IElevatorControls {
 	 */
 	@Override
 	public int getElevatorWeight(int elevatorNumber) throws RemoteException {
-		return iElevatorReference.getElevatorWeight(elevatorNumber);
+		return iElevatorReference.getElevatorWeight(elevatorNumber-1);
 	}
 
 	/* (non-Javadoc)
@@ -64,13 +64,13 @@ public class ElevatorAdapter implements IElevatorControls {
 	 */
 	@Override
 	public int getElevatorCapacity(int elevatorNumber) throws RemoteException{
-		return iElevatorReference.getElevatorCapacity(elevatorNumber);
+		return iElevatorReference.getElevatorCapacity(elevatorNumber-1);
 	}
 
 	/* (non-Javadoc)
 	 * @see at.fhooe.mc.controller.IElevatorControls#setCommittedDirection(int, int)
 	 */
-	public int getFloorNum() throws java.rmi.RemoteException {
+	public int getFloorNum() throws RemoteException {
 		return iElevatorReference.getFloorNum();
 	}
 
@@ -79,7 +79,7 @@ public class ElevatorAdapter implements IElevatorControls {
 	 */
 	@Override
 	public void setCommittedDirection(int elevatorNumber, int direction) throws RemoteException{
-		iElevatorReference.setCommittedDirection(elevatorNumber, direction);
+		iElevatorReference.setCommittedDirection(elevatorNumber-1, direction);
 	}
 
 	/* (non-Javadoc)
@@ -87,7 +87,7 @@ public class ElevatorAdapter implements IElevatorControls {
 	 */
 	@Override
 	public int getTarget(int elevatorNumber) throws RemoteException{
-		return iElevatorReference.getTarget(elevatorNumber);
+		return iElevatorReference.getTarget(elevatorNumber-1);
 	}
 
 	/* (non-Javadoc)
@@ -95,7 +95,7 @@ public class ElevatorAdapter implements IElevatorControls {
 	 */
 	@Override
 	public void setTarget(int elevatorNumber, int target) throws RemoteException{
-		iElevatorReference.setTarget(elevatorNumber, target);
+		iElevatorReference.setTarget(elevatorNumber-1, target-1);
 	}
 
 	/* (non-Javadoc)
@@ -107,7 +107,7 @@ public class ElevatorAdapter implements IElevatorControls {
 		boolean buttonsSet[] = new boolean[floorNum];
 
 		for (int i = 0; i < floorNum; i++){
-			buttonsSet[i] = iElevatorReference.getElevatorButton(elevatorNumber, i+1);
+			buttonsSet[i] = iElevatorReference.getElevatorButton(elevatorNumber-1, i);
 		}
 
 		return buttonsSet;
@@ -122,7 +122,7 @@ public class ElevatorAdapter implements IElevatorControls {
 		boolean buttonsSet[] = new boolean[floorNum];
 
 		for (int i = 0; i < floorNum; i++){
-			buttonsSet[i] = iElevatorReference.getFloorButtonDown(i+1);
+			buttonsSet[i] = iElevatorReference.getFloorButtonDown(i);
 		}
 
 		return buttonsSet;
@@ -137,7 +137,7 @@ public class ElevatorAdapter implements IElevatorControls {
 		boolean buttonsSet[] = new boolean[floorNum];
 
 		for (int i = 0; i < floorNum; i++){
-			buttonsSet[i] = iElevatorReference.getFloorButtonUp(i+1);
+			buttonsSet[i] = iElevatorReference.getFloorButtonUp(i);
 		}
 
 		return buttonsSet;
