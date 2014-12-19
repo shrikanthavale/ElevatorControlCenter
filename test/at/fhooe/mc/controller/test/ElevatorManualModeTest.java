@@ -137,6 +137,53 @@ public class ElevatorManualModeTest {
 
 		Assert.assertEquals("Elevator Direction Status Don't match",
 				ELEVATOR_DIRECTION_UP, actualDirection);
+		
+		// go to floor number 4 , for example
+		elevatorController.setTarget(1);
+		
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		elevator = elevatorUpdater.getElevator();
+		
+		Assert.assertEquals("Target Floor Don't Match", 1, elevator.getTarget());
+
+		switch (elevator.getDoorStatus()) {
+		case 1:
+			actualDoorStatus = DOOR_STATUS_OPEN;
+			break;
+		case 2:
+			actualDoorStatus = DOOR_STATUS_CLOSED;
+			break;
+		case 3:
+			actualDoorStatus = DOOR_STATUS_OPENING;
+			break;
+		case 4:
+			actualDoorStatus = DOOR_STATUS_CLOSING;
+			break;
+		default:
+			actualDoorStatus = "Default";
+		}
+
+		Assert.assertEquals("Door Status Don't Match", DOOR_STATUS_CLOSED,
+				actualDoorStatus);
+
+		switch (elevator.getCurrentDirection()) {
+		case 0:
+			actualDirection = ELEVATOR_DIRECTION_UP;
+			break;
+		case 1:
+			actualDirection = ELEVATOR_DIRECTION_DOWN;
+			break;
+		default:
+			actualDirection = ELEVATOR_DIRECTION_NOT_SET;
+		}
+
+		Assert.assertEquals("Elevator Direction Status Don't match",
+				ELEVATOR_DIRECTION_DOWN, actualDirection);
 
 	}
 
