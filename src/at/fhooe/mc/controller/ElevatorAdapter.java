@@ -40,7 +40,7 @@ public class ElevatorAdapter implements IElevatorControls {
 	 */
 	@Override
 	public int getElevatorFloor(int elevatorNumber) throws RemoteException {
-		return iElevatorReference.getElevatorFloor(elevatorNumber-1);
+		return iElevatorReference.getElevatorFloor(elevatorNumber-1)+1;
 	}
 
 	/* (non-Javadoc)
@@ -87,7 +87,7 @@ public class ElevatorAdapter implements IElevatorControls {
 	 */
 	@Override
 	public int getTarget(int elevatorNumber) throws RemoteException{
-		return iElevatorReference.getTarget(elevatorNumber-1);
+		return iElevatorReference.getTarget(elevatorNumber-1)+1;
 	}
 
 	/* (non-Javadoc)

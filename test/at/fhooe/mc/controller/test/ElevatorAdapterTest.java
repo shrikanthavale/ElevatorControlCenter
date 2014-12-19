@@ -198,8 +198,8 @@ public class ElevatorAdapterTest {
     	try{
     		assertEquals(1,m_adapter.getTarget(1));
     		assertEquals(4,m_adapter.getTarget(2));
-    		assertEquals(2,m_adapter.getTarget(3));
-    		assertEquals(3,m_adapter.getTarget(4));
+    		assertEquals(3,m_adapter.getTarget(3));
+    		assertEquals(2,m_adapter.getTarget(4));
     	} catch (RemoteException e){
     		fail();
     	}
