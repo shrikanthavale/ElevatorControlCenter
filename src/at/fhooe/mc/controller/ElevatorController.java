@@ -17,6 +17,7 @@ public class ElevatorController implements Observer {
 
 	private IElevatorControls iElevatorControlsReference;
 	private boolean automaticMode = false;
+	private int currentTarget = -1;
 
 	public ElevatorController(IElevatorControls controls) {
 		iElevatorControlsReference = controls;
@@ -59,7 +60,11 @@ public class ElevatorController implements Observer {
 		if (arg1 instanceof Elevator) {
 			Elevator elevator = (Elevator) arg1;
 			if (automaticMode) {
-				setTarget(getNextPressedFloorInDrivingDirection(elevator));
+				if (currentTarget != elevator.getPosition()) {
+
+				} else {
+					setTarget(getNextPressedFloorInDrivingDirection(elevator));
+				}
 			}
 		}
 	}
@@ -155,7 +160,7 @@ public class ElevatorController implements Observer {
 
 			}
 		}
-
+		currentTarget = targetFloor;
 		return targetFloor;
 	}
 
