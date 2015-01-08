@@ -80,6 +80,7 @@ public class ElevatorControllerGUI extends JFrame {
 		elevatorUpdater = new ElevatorUpdater(adapter);
 		elevatorUpdater.addObserver(elevatorAttributesPanel);
 		elevatorUpdater.addObserver(tableViewControlPanel);
+		elevatorUpdater.addObserver(controller);
 
 		new Thread(elevatorUpdater).start();
 	}
