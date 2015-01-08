@@ -7,6 +7,8 @@ import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JOptionPane;
+
 import at.fhooe.mc.model.Elevator;
 
 /**
@@ -66,16 +68,16 @@ public class ElevatorUpdater extends Observable implements Runnable {
 				elevator.setWeight(adapter.getElevatorWeight(1));
 				elevator.setTarget(adapter.getTarget(1));
 
-				setChanged();
-				notifyObservers();
 			} catch (RemoteException e) {
-				// TODO
+				elevator = null;
 			}
+
+			setChanged();
+			notifyObservers();
 
 			try {
 				Thread.sleep(20);
 			} catch (InterruptedException e) {
-				// TODO
 				e.printStackTrace();
 			}
 		}

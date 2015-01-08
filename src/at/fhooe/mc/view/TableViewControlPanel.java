@@ -39,6 +39,7 @@ public class TableViewControlPanel extends JPanel implements Observer,
 	private static final String CURRENT_POSITION = "Current Position";
 
 	private int floorNr;
+	boolean connection = true;
 
 	private List<JCheckBox> listInElFloor = new ArrayList<JCheckBox>();
 	private List<JCheckBox> listOnFloorUp = new ArrayList<JCheckBox>();
@@ -131,6 +132,7 @@ public class TableViewControlPanel extends JPanel implements Observer,
 	@Override
 	public void update(Observable o, Object _object) {
 		if (_object instanceof Elevator) {
+			connection = true;
 			Elevator elevator = (Elevator) _object;
 
 			for (int i = 0; i < floorNr; i++){
@@ -141,7 +143,10 @@ public class TableViewControlPanel extends JPanel implements Observer,
 
 			listCurrentFloor.get(elevator.getPosition()-1).setSelected(true);
 		} else {
-			JOptionPane.showMessageDialog(this, "Elevator was null");
+			if (connection){
+				JOptionPane.showMessageDialog(this, "Lost connection to Emulator, so the status is not updated anymore!");
+				connection = false;
+			}
 		}
 
 	}
