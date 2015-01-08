@@ -150,8 +150,6 @@ public class TableViewControlPanel extends JPanel implements Observer,
 				int i = 0;
 				while (!button.equals(listTargetFloor.get(i)))
 					i++;
-
-				System.out.println(""+i);
 				if (i < listTargetFloor.size()){
 					elevatorController.setTarget(i+1);
 				}
