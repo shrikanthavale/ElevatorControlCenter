@@ -5,7 +5,6 @@ package at.fhooe.mc.controller;
 
 import java.rmi.RemoteException;
 import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JOptionPane;
 
@@ -23,16 +22,6 @@ public class ElevatorUpdater extends Observable implements Runnable {
 
 	public ElevatorUpdater(IElevatorControls controls){
 		adapter = controls;
-	}
-
-	@Override
-	public void addObserver(Observer observer){
-		super.addObserver(observer);
-	}
-
-	@Override
-	public void deleteObserver(Observer observer){
-		super.deleteObserver(observer);
 	}
 
 	@Override

@@ -55,8 +55,11 @@ public class Elevator {
 	 */
 	 private boolean[] pressedButtonsFloorUp;
 
+	 /**
+	  * elevator target
+	  */
 	 private int target;
-
+	 
 	/**
 	 * @return the currentDirection
 	 */
@@ -192,12 +195,19 @@ public class Elevator {
 		}
 	}
 
+	/**
+	 * @return the target
+	 */
 	public int getTarget() {
 		return target;
 	}
 
+	/**
+	 * @param target the target to set
+	 */
 	public void setTarget(int target) {
 		this.target = target;
 	}
+
 
 }
