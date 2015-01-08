@@ -55,7 +55,15 @@ public class Elevator {
 	 */
 	 private boolean[] pressedButtonsFloorUp;
 
+	 /**
+	  * elevator target
+	  */
 	 private int target;
+	 
+	 /**
+	  * elevator is at which floor currently
+	  */
+	 private int currentFloor;
 
 	/**
 	 * @return the currentDirection
@@ -192,12 +200,34 @@ public class Elevator {
 		}
 	}
 
+	/**
+	 * @return the target
+	 */
 	public int getTarget() {
 		return target;
 	}
 
+	/**
+	 * @param target the target to set
+	 */
 	public void setTarget(int target) {
 		this.target = target;
 	}
+
+	/**
+	 * @return the currentFloor
+	 */
+	public int getCurrentFloor() {
+		return currentFloor;
+	}
+
+	/**
+	 * @param currentFloor the currentFloor to set
+	 */
+	public void setCurrentFloor(int currentFloor) {
+		this.currentFloor = currentFloor;
+	}
+	
+	
 
 }
