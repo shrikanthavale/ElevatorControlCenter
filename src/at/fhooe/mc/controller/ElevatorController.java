@@ -17,7 +17,7 @@ public class ElevatorController implements Observer {
 
 	private IElevatorControls iElevatorControlsReference;
 	private boolean automaticMode = false;
-	private int currentTarget = -1;
+	private int currentTarget = 1;
 
 	public ElevatorController(IElevatorControls controls) {
 		iElevatorControlsReference = controls;
@@ -65,6 +65,8 @@ public class ElevatorController implements Observer {
 				}else{
 				setTarget(getNextPressedFloorInDrivingDirection(elevator));
 				}
+			} else {
+				currentTarget = elevator.getTarget();
 			}
 		}
 	}
@@ -76,7 +78,7 @@ public class ElevatorController implements Observer {
 	private int getNextPressedFloorInDrivingDirection(Elevator elevator) {
 		int targetFloor = -1;
 
-		while (targetFloor == -1) {
+//		while (targetFloor == -1) {
 			if (elevator.getCurrentDirection() == IElevatorControls.ELEVATOR_DIRECTION_UP) {
 				// Get Pressed Buttons Floor Up, which are in current Elevator
 				// direction
@@ -159,7 +161,7 @@ public class ElevatorController implements Observer {
 				}
 
 			}
-		}
+//		}
 		currentTarget = targetFloor;
 		return targetFloor;
 	}

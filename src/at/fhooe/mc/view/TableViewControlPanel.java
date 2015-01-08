@@ -96,6 +96,9 @@ public class TableViewControlPanel extends JPanel implements Observer,
 		JRadioButton target = new JRadioButton();
 		target.setActionCommand("targetFloor"+floor);
 		target.addActionListener(this);
+		if (floor == 1){
+			target.setSelected(true);
+		}
 		listTargetFloor.add(0,target);
 		add(listTargetFloor.get(0));
 		groupTargetRBs.add(listTargetFloor.get(0));
