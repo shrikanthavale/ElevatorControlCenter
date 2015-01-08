@@ -18,6 +18,10 @@ public class ElevatorController implements Observer {
 	private IElevatorControls iElevatorControlsReference;
 	private boolean automaticMode = false;
 	private int currentTarget = 1;
+	private static final int CURRENT_DIRECTION_UNDEFINED = 0;
+	private static final int CURRENT_DIRECTION_UP = 1;
+	private static final int CURRENT_DIRECTION_DOWN = 2;
+	private int autoModeCurrentDirection = 1;
 
 	public ElevatorController(IElevatorControls controls) {
 		iElevatorControlsReference = controls;
@@ -52,7 +56,7 @@ public class ElevatorController implements Observer {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
@@ -60,10 +64,14 @@ public class ElevatorController implements Observer {
 		if (arg1 instanceof Elevator) {
 			Elevator elevator = (Elevator) arg1;
 			if (automaticMode) {
-				if (currentTarget != elevator.getPosition()) {
-
-				}else{
-				setTarget(getNextPressedFloorInDrivingDirection(elevator));
+				if (currentTarget == elevator.getPosition()) {
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					setTarget(calculateNextTarget(elevator));
 				}
 			} else {
 				currentTarget = elevator.getTarget();
@@ -72,96 +80,87 @@ public class ElevatorController implements Observer {
 	}
 
 	/**
-	 * @param currentDirection
+	 * @param elevator
 	 * @return
 	 */
-	private int getNextPressedFloorInDrivingDirection(Elevator elevator) {
+	private int calculateNextTarget(Elevator elevator) {
 		int targetFloor = -1;
 
-//		while (targetFloor == -1) {
-			if (elevator.getCurrentDirection() == IElevatorControls.ELEVATOR_DIRECTION_UP) {
-				// Get Pressed Buttons Floor Up, which are in current Elevator
-				// direction
-				for (int i = 0; i < elevator.getPressedButtonsFloorUp().length; i++) {
+		// On Floors, direction UP
+		if (autoModeCurrentDirection == ElevatorController.CURRENT_DIRECTION_UP) {
 
-					boolean tempButtonPressed = elevator.getPressedButtonsFloorUp()[i];
-
-					if (tempButtonPressed) {
-						if (elevator.getPosition() < i) {
-							targetFloor = i;
-							break;
-						}
+			for (int i = 0; i < elevator.getPressedButtonsFloorUp().length; i++) {
+				if (elevator.getPressedButtonsFloorUp()[i]) {
+					if (elevator.getPosition() < i) {
+						targetFloor = i;
 					}
-				}
-				// Get Pressed Buttons in Elevator, which are in current
-				// Elevator
-				// direction
-				for (int i = 0; i < elevator.getPressedButtonsElevator().length; i++) {
-					boolean tempButtonPressed = elevator.getPressedButtonsElevator()[i];
-					if (tempButtonPressed) {
-						if (elevator.getPosition() < i && targetFloor > i) {
-							targetFloor = i;
-						}
-					}
-				}
-
-				if (targetFloor == -1) {
-					if (elevator.getPressedButtonsElevator().length == 0
-							&& elevator.getPressedButtonsFloorDown().length == 0
-							&& elevator.getPressedButtonsFloorUp().length == 0) {
-						targetFloor = 0;
-						elevator.setCurrentDirection(IElevatorControls.ELEVATOR_DIRECTION_UP);
-					} else {
-						elevator.setCurrentDirection(IElevatorControls.ELEVATOR_DIRECTION_DOWN);
-					}
-				}
-			} else if (elevator.getCurrentDirection() == IElevatorControls.ELEVATOR_DIRECTION_DOWN) {
-				for (int i = 0; i < elevator.getPressedButtonsFloorDown().length; i++) {
-					boolean tempButtonPressed = elevator.getPressedButtonsFloorDown()[i];
-
-					if (tempButtonPressed) {
-						if (elevator.getPosition() > i) {
-							targetFloor = i;
-							break;
-						}
-
-					}
-				}
-
-				// Get Pressed Buttons in Elevator, which are in current
-				// Elevator
-				// direction
-				for (int i = 0; i < elevator.getPressedButtonsElevator().length; i++) {
-					boolean tempButtonPressed = elevator.getPressedButtonsElevator()[i];
-					if (tempButtonPressed) {
-						if (elevator.getPosition() > i && targetFloor < i) {
-							targetFloor = i;
-						}
-					}
-				}
-				if (targetFloor == -1) {
-					if (elevator.getPressedButtonsElevator().length == 0
-							&& elevator.getPressedButtonsFloorDown().length == 0
-							&& elevator.getPressedButtonsFloorUp().length == 0) {
-						targetFloor = 0;
-					}
-					elevator.setCurrentDirection(IElevatorControls.ELEVATOR_DIRECTION_UP);
 				}
 			}
-			if (elevator.getCurrentDirection() == IElevatorControls.ELEVATOR_DIRECTION_UNCOMMITTED) {
-				if (elevator.getWeight() == 0) {
+
+			// In Elevator -
+			for (int i = 0; i < elevator.getPressedButtonsElevator().length; i++) {
+				if (elevator.getPressedButtonsElevator()[i]) {
+					if (elevator.getPosition() < i && targetFloor > i) {
+						targetFloor = i;
+					}
 				}
+			}
+
+			if (targetFloor == -1) {
 				if (elevator.getPressedButtonsElevator().length == 0
 						&& elevator.getPressedButtonsFloorDown().length == 0
 						&& elevator.getPressedButtonsFloorUp().length == 0) {
-					targetFloor = 0;
-					elevator.setCurrentDirection(IElevatorControls.ELEVATOR_DIRECTION_UP);
+					targetFloor = 1;
 				} else {
-					elevator.setCurrentDirection(IElevatorControls.ELEVATOR_DIRECTION_UP);
+					autoModeCurrentDirection = ElevatorController.CURRENT_DIRECTION_DOWN;
+					targetFloor = 6;
+				}
+			}
+
+		} else if (autoModeCurrentDirection == ElevatorController.CURRENT_DIRECTION_DOWN) {
+			for (int i = 0; i < elevator.getPressedButtonsFloorDown().length; i++) {
+				if (elevator.getPressedButtonsFloorDown()[i]) {
+					if (elevator.getPosition() > i) {
+						targetFloor = i;
+					}
+				}
+			}
+
+			for (int i = 0; i < elevator.getPressedButtonsElevator().length; i++) {
+				if (elevator.getPressedButtonsElevator()[i]) {
+					if (elevator.getPosition() > i && targetFloor < i) {
+						targetFloor = i;
+					}
+				}
+			}
+
+			if (targetFloor == -1) {
+				if (elevator.getPressedButtonsElevator().length == 0
+						&& elevator.getPressedButtonsFloorDown().length == 0
+						&& elevator.getPressedButtonsFloorUp().length == 0) {
+					targetFloor = 1;
+				} else {
+					autoModeCurrentDirection = ElevatorController.CURRENT_DIRECTION_UP;
+					targetFloor = 1;
 				}
 
 			}
-//		}
+		}
+		// if (elevator.getCurrentDirection() ==
+		// IElevatorControls.ELEVATOR_DIRECTION_UNCOMMITTED) {
+		// if (elevator.getWeight() == 0) {
+		// }
+		// if (elevator.getPressedButtonsElevator().length == 0 &&
+		// elevator.getPressedButtonsFloorDown().length == 0
+		// && elevator.getPressedButtonsFloorUp().length == 0) {
+		// targetFloor = 0;
+		// elevator.setCurrentDirection(IElevatorControls.ELEVATOR_DIRECTION_UP);
+		// } else {
+		// elevator.setCurrentDirection(IElevatorControls.ELEVATOR_DIRECTION_UP);
+		// targetFloor = 0;
+		// }
+		//
+		// }
 		currentTarget = targetFloor;
 		return targetFloor;
 	}
