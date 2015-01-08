@@ -16,7 +16,7 @@ import sqelevator.IElevator;
 import at.fhooe.mc.controller.ElevatorAdapter;
 import at.fhooe.mc.controller.ElevatorController;
 import at.fhooe.mc.controller.ElevatorUpdater;
-import at.fhooe.mc.controller.test.ElevatorMock;
+import at.fhooe.mc.model.ElevatorMock;
 
 /**
  * @author Viktor Baier S1310455001
@@ -28,7 +28,6 @@ public class ElevatorControllerGUI extends JFrame {
 	private static final long serialVersionUID = 6783651316064353006L;
 	private TableViewControlPanel tableViewControlPanel;
 	private ElevatorAttributesPanel elevatorAttributesPanel;
-	private ElevatorViewPanel elevatorViewPanel;
 	private JPanel flowLayout;
 	private static ElevatorUpdater elevatorUpdater;
 
@@ -64,19 +63,22 @@ public class ElevatorControllerGUI extends JFrame {
 			adapter.setiElevatorReference(new ElevatorMock());
 		}
 		ElevatorController controller = new ElevatorController(adapter);
+		int floorNr = 4;
+		try{
+			floorNr = adapter.getFloorNum();
+		} catch (Exception e){
+			JOptionPane.showMessageDialog(this, "FloorNr could not be get, use 4 as standard");
+		}
 
-		tableViewControlPanel = new TableViewControlPanel(controller);
-		elevatorAttributesPanel = new ElevatorAttributesPanel(controller);
-		elevatorViewPanel = new ElevatorViewPanel();
+		tableViewControlPanel = new TableViewControlPanel(controller, floorNr);
+		elevatorAttributesPanel = new ElevatorAttributesPanel(controller, tableViewControlPanel);
 
 		flowLayout.add(tableViewControlPanel);
-		flowLayout.add(elevatorViewPanel);
 		flowLayout.add(elevatorAttributesPanel);
 		this.add(flowLayout);
 
 		elevatorUpdater = new ElevatorUpdater(adapter);
 		elevatorUpdater.addObserver(elevatorAttributesPanel);
-		elevatorUpdater.addObserver(elevatorViewPanel);
 		elevatorUpdater.addObserver(tableViewControlPanel);
 
 		new Thread(elevatorUpdater).start();

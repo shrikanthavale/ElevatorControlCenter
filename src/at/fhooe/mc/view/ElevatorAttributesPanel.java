@@ -3,7 +3,6 @@
  */
 package at.fhooe.mc.view;
 
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,11 +53,13 @@ public class ElevatorAttributesPanel extends JPanel implements Observer, ActionL
 	private ButtonGroup bgrMode;
 
 	private ElevatorController elevatorController;
+	private TableViewControlPanel tableView;
 
-	public ElevatorAttributesPanel(ElevatorController controller) {
+	public ElevatorAttributesPanel(ElevatorController controller, TableViewControlPanel table) {
 		setLayout(new GridLayout(6, 2));
 		initTableEntries();
 		elevatorController = controller;
+		tableView = table;
 	}
 
 	/**
@@ -75,7 +76,7 @@ public class ElevatorAttributesPanel extends JPanel implements Observer, ActionL
 
 		add(new JLabel(ELEVATOR_MODE));
 		JPanel p = new JPanel();
-		p.setLayout(new FlowLayout());
+		p.setLayout(new GridLayout(1,2));
 		bgrMode = new ButtonGroup();
 		cheManual = new JRadioButton();
 		cheManual.addActionListener(this);
@@ -233,8 +234,8 @@ public class ElevatorAttributesPanel extends JPanel implements Observer, ActionL
 				lblDirection.setText(ELEVATOR_DIRECTION_NOT_SET);
 			}
 
-			lblSpeed.setText(""+elevator.getSpeed());
-			lblPayload.setText(""+elevator.getWeight());
+			lblSpeed.setText(""+elevator.getSpeed() + " feet/second");
+			lblPayload.setText(""+elevator.getWeight()+" lbs");
 		}
 	}
 
@@ -244,10 +245,14 @@ public class ElevatorAttributesPanel extends JPanel implements Observer, ActionL
 			JRadioButton button = (JRadioButton)arg0.getSource();
 
 			if (button.isSelected()){
-				if (button.equals(cheManual))
+				if (button.equals(cheManual)){
 					elevatorController.setAutomaticMode(false);
-				if (button.equals(cheAutomatic))
+					tableView.setManualAutomaticMode(false);
+				}
+				if (button.equals(cheAutomatic)){
 					elevatorController.setAutomaticMode(true);
+					tableView.setManualAutomaticMode(true);
+				}
 			}
 		}
 

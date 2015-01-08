@@ -1,7 +1,7 @@
 /**
  *
  */
-package at.fhooe.mc.controller.test;
+package at.fhooe.mc.model;
 
 import java.rmi.RemoteException;
 import java.util.Random;
@@ -12,16 +12,11 @@ import sqelevator.IElevator;
  * @author Metrics_Testing Team Dec 17, 2014
  *
  */
-public class ElevatorMock implements IElevator, Runnable {
+public class ElevatorMock implements IElevator {
 
 	int[] directions = {ELEVATOR_DIRECTION_UP, ELEVATOR_DIRECTION_UNCOMMITTED, ELEVATOR_DIRECTION_UNCOMMITTED, ELEVATOR_DIRECTION_DOWN};
-	int[] targets = {1,4,2,3};
-	int[] positions = {1,1,1,1};
-
-	@Override
-	public void run() {
-
-	}
+	int[] targets = {0,3,2,1};
+	int[] positions = {0,0,0,0};
 
 	/*
 	 * (non-Javadoc)
@@ -31,10 +26,10 @@ public class ElevatorMock implements IElevator, Runnable {
 	@Override
 	public int getCommittedDirection(int elevatorNumber) throws RemoteException {
 
-		if (elevatorNumber < 1 || elevatorNumber > 4)
+		if (elevatorNumber < 0 || elevatorNumber > 3)
 			throw new RemoteException("Not existing elevator number.");
 		else
-			return directions[elevatorNumber-1];
+			return directions[elevatorNumber];
 	}
 
 	/*
@@ -47,6 +42,9 @@ public class ElevatorMock implements IElevator, Runnable {
 		int elevatorAcceleration = 0;
 
 		switch (elevatorNumber) {
+		case 0:
+			elevatorAcceleration = randInt(50, 100);
+			break;
 		case 1:
 			elevatorAcceleration = randInt(50, 100);
 			break;
@@ -54,9 +52,6 @@ public class ElevatorMock implements IElevator, Runnable {
 			elevatorAcceleration = randInt(50, 100);
 			break;
 		case 3:
-			elevatorAcceleration = randInt(50, 100);
-			break;
-		case 4:
 			elevatorAcceleration = randInt(50, 100);
 			break;
 		default:
@@ -78,19 +73,37 @@ public class ElevatorMock implements IElevator, Runnable {
 		boolean floorButtonInsideElevatorStatus = false;
 
 		switch (elevatorNumber) {
+		case 0:
+			switch (floor) {
+			case 0:
+				floorButtonInsideElevatorStatus = true;
+				break;
+			case 1:
+				floorButtonInsideElevatorStatus = false;
+				break;
+			case 2:
+				floorButtonInsideElevatorStatus = true;
+				break;
+			case 3:
+				floorButtonInsideElevatorStatus = false;
+				break;
+			default:
+				throw new RemoteException("Not existing floor.");
+			}
+			break;
 		case 1:
 			switch (floor) {
+			case 0:
+				floorButtonInsideElevatorStatus = true;
+				break;
 			case 1:
 				floorButtonInsideElevatorStatus = true;
 				break;
 			case 2:
-				floorButtonInsideElevatorStatus = false;
+				floorButtonInsideElevatorStatus = true;
 				break;
 			case 3:
 				floorButtonInsideElevatorStatus = true;
-				break;
-			case 4:
-				floorButtonInsideElevatorStatus = false;
 				break;
 			default:
 				throw new RemoteException("Not existing floor.");
@@ -98,17 +111,17 @@ public class ElevatorMock implements IElevator, Runnable {
 			break;
 		case 2:
 			switch (floor) {
+			case 0:
+				floorButtonInsideElevatorStatus = false;
+				break;
 			case 1:
-				floorButtonInsideElevatorStatus = true;
+				floorButtonInsideElevatorStatus = false;
 				break;
 			case 2:
-				floorButtonInsideElevatorStatus = true;
+				floorButtonInsideElevatorStatus = false;
 				break;
 			case 3:
-				floorButtonInsideElevatorStatus = true;
-				break;
-			case 4:
-				floorButtonInsideElevatorStatus = true;
+				floorButtonInsideElevatorStatus = false;
 				break;
 			default:
 				throw new RemoteException("Not existing floor.");
@@ -116,34 +129,16 @@ public class ElevatorMock implements IElevator, Runnable {
 			break;
 		case 3:
 			switch (floor) {
+			case 0:
+				floorButtonInsideElevatorStatus = false;
+				break;
 			case 1:
-				floorButtonInsideElevatorStatus = false;
-				break;
-			case 2:
-				floorButtonInsideElevatorStatus = false;
-				break;
-			case 3:
-				floorButtonInsideElevatorStatus = false;
-				break;
-			case 4:
-				floorButtonInsideElevatorStatus = false;
-				break;
-			default:
-				throw new RemoteException("Not existing floor.");
-			}
-			break;
-		case 4:
-			switch (floor) {
-			case 1:
-				floorButtonInsideElevatorStatus = false;
+				floorButtonInsideElevatorStatus = true;
 				break;
 			case 2:
 				floorButtonInsideElevatorStatus = true;
 				break;
 			case 3:
-				floorButtonInsideElevatorStatus = true;
-				break;
-			case 4:
 				floorButtonInsideElevatorStatus = false;
 				break;
 			default:
@@ -167,16 +162,16 @@ public class ElevatorMock implements IElevator, Runnable {
 		int elevatorDoorStatus = ELEVATOR_DOORS_CLOSED;
 
 		switch (elevatorNumber) {
-		case 1:
+		case 0:
 			elevatorDoorStatus = ELEVATOR_DOORS_CLOSED;
 			break;
-		case 2:
+		case 1:
 			elevatorDoorStatus = ELEVATOR_DOORS_OPENING;
 			break;
-		case 3:
+		case 2:
 			elevatorDoorStatus = ELEVATOR_DOORS_OPEN;
 			break;
-		case 4:
+		case 3:
 			elevatorDoorStatus = ELEVATOR_DOORS_CLOSING;
 			break;
 		default:
@@ -193,10 +188,10 @@ public class ElevatorMock implements IElevator, Runnable {
 	 */
 	@Override
 	public int getElevatorFloor(int elevatorNumber) throws RemoteException {
-		if (elevatorNumber < 1 || elevatorNumber > 4)
+		if (elevatorNumber < 0 || elevatorNumber > 3)
 			throw new RemoteException("Not existing elevator number.");
 		else
-			return positions[elevatorNumber-1];
+			return positions[elevatorNumber];
 	}
 
 	/*
@@ -219,16 +214,16 @@ public class ElevatorMock implements IElevator, Runnable {
 		int elevatorPositionFromGround = 0;
 
 		switch (elevatorNumber) {
-		case 1:
+		case 0:
 			elevatorPositionFromGround = 100;
 			break;
-		case 2:
+		case 1:
 			elevatorPositionFromGround = 250;
 			break;
-		case 3:
+		case 2:
 			elevatorPositionFromGround = 500;
 			break;
-		case 4:
+		case 3:
 			elevatorPositionFromGround = 750;
 			break;
 		default:
@@ -248,16 +243,16 @@ public class ElevatorMock implements IElevator, Runnable {
 		int elevatorSpeed = 0;
 
 		switch (elevatorNumber) {
-		case 1:
+		case 0:
 			elevatorSpeed = 30;
 			break;
-		case 2:
+		case 1:
 			elevatorSpeed = 0;
 			break;
-		case 3:
+		case 2:
 			elevatorSpeed = 10;
 			break;
-		case 4:
+		case 3:
 			elevatorSpeed = 50;
 			break;
 		default:
@@ -277,16 +272,16 @@ public class ElevatorMock implements IElevator, Runnable {
 		int elevatorWeight = 0;
 
 		switch (elevatorNumber) {
-		case 1:
+		case 0:
 			elevatorWeight = 500;
 			break;
-		case 2:
+		case 1:
 			elevatorWeight = 550;
 			break;
-		case 3:
+		case 2:
 			elevatorWeight = 800;
 			break;
-		case 4:
+		case 3:
 			elevatorWeight = 720;
 			break;
 		default:
@@ -306,16 +301,16 @@ public class ElevatorMock implements IElevator, Runnable {
 		int elevatorCapacity = 0;
 
 		switch (elevatorNumber) {
-		case 1:
+		case 0:
 			elevatorCapacity = 0;
 			break;
-		case 2:
+		case 1:
 			elevatorCapacity = 5;
 			break;
-		case 3:
+		case 2:
 			elevatorCapacity = 7;
 			break;
-		case 4:
+		case 3:
 			elevatorCapacity = 10;
 			break;
 		default:
@@ -335,16 +330,16 @@ public class ElevatorMock implements IElevator, Runnable {
 		boolean floorButtonDownStatus = false;
 
 		switch (floor) {
+		case 0:
+			floorButtonDownStatus = false;
+			break;
 		case 1:
 			floorButtonDownStatus = false;
 			break;
 		case 2:
-			floorButtonDownStatus = false;
-			break;
-		case 3:
 			floorButtonDownStatus = true;
 			break;
-		case 4:
+		case 3:
 			floorButtonDownStatus = false;
 			break;
 		default:
@@ -364,16 +359,16 @@ public class ElevatorMock implements IElevator, Runnable {
 		boolean floorButtonUpStatus = false;
 
 		switch (floor) {
-		case 1:
+		case 0:
 			floorButtonUpStatus = true;
 			break;
-		case 2:
+		case 1:
 			floorButtonUpStatus = false;
 			break;
-		case 3:
+		case 2:
 			floorButtonUpStatus = true;
 			break;
-		case 4:
+		case 3:
 			floorButtonUpStatus = false;
 			break;
 		default:
@@ -414,8 +409,11 @@ public class ElevatorMock implements IElevator, Runnable {
 		boolean elevatorServiceFloors = false;
 
 		switch (elevatorNumber) {
-		case 1:
+		case 0:
 			switch (floor) {
+			case 0:
+				elevatorServiceFloors = true;
+				break;
 			case 1:
 				elevatorServiceFloors = true;
 				break;
@@ -424,19 +422,16 @@ public class ElevatorMock implements IElevator, Runnable {
 				break;
 			case 3:
 				elevatorServiceFloors = true;
-				break;
-			case 4:
-				elevatorServiceFloors = true;
-				break;
-			case 5:
-				elevatorServiceFloors = false;
 				break;
 			default:
 				break;
 			}
 			break;
-		case 2:
+		case 1:
 			switch (floor) {
+			case 0:
+				elevatorServiceFloors = true;
+				break;
 			case 1:
 				elevatorServiceFloors = true;
 				break;
@@ -444,12 +439,23 @@ public class ElevatorMock implements IElevator, Runnable {
 				elevatorServiceFloors = true;
 				break;
 			case 3:
-				elevatorServiceFloors = true;
-				break;
-			case 4:
 				elevatorServiceFloors = false;
 				break;
-			case 5:
+			default:
+				break;
+			}
+		case 2:
+			switch (floor) {
+			case 0:
+				elevatorServiceFloors = true;
+				break;
+			case 1:
+				elevatorServiceFloors = false;
+				break;
+			case 2:
+				elevatorServiceFloors = true;
+				break;
+			case 3:
 				elevatorServiceFloors = true;
 				break;
 			default:
@@ -457,6 +463,9 @@ public class ElevatorMock implements IElevator, Runnable {
 			}
 		case 3:
 			switch (floor) {
+			case 0:
+				elevatorServiceFloors = true;
+				break;
 			case 1:
 				elevatorServiceFloors = true;
 				break;
@@ -464,32 +473,6 @@ public class ElevatorMock implements IElevator, Runnable {
 				elevatorServiceFloors = false;
 				break;
 			case 3:
-				elevatorServiceFloors = true;
-				break;
-			case 4:
-				elevatorServiceFloors = true;
-				break;
-			case 5:
-				elevatorServiceFloors = true;
-				break;
-			default:
-				break;
-			}
-		case 4:
-			switch (floor) {
-			case 1:
-				elevatorServiceFloors = true;
-				break;
-			case 2:
-				elevatorServiceFloors = true;
-				break;
-			case 3:
-				elevatorServiceFloors = false;
-				break;
-			case 4:
-				elevatorServiceFloors = true;
-				break;
-			case 5:
 				elevatorServiceFloors = true;
 				break;
 			default:
@@ -509,10 +492,10 @@ public class ElevatorMock implements IElevator, Runnable {
 	 */
 	@Override
 	public int getTarget(int elevatorNumber) throws RemoteException {
-		if (elevatorNumber < 1 || elevatorNumber > 4)
+		if (elevatorNumber < 0 || elevatorNumber > 3)
 			throw new RemoteException("Not existing elevator number.");
 		else
-			return targets[elevatorNumber-1];
+			return targets[elevatorNumber];
 	}
 
 	/*
@@ -523,13 +506,13 @@ public class ElevatorMock implements IElevator, Runnable {
 	@Override
 	public void setCommittedDirection(int elevatorNumber, int direction)
 			throws RemoteException {
-		if (elevatorNumber < 1 || elevatorNumber > 4)
+		if (elevatorNumber < 0 || elevatorNumber > 3)
 			throw new RemoteException("Not existing elevator number.");
 		else
 			if (direction != ELEVATOR_DIRECTION_UP && direction != ELEVATOR_DIRECTION_DOWN && direction != ELEVATOR_DIRECTION_UNCOMMITTED)
 				throw new RemoteException("Not existing direction.");
 			else
-				directions[elevatorNumber-1] = direction;
+				directions[elevatorNumber] = direction;
 	}
 
 	/*
@@ -551,14 +534,14 @@ public class ElevatorMock implements IElevator, Runnable {
 	@Override
 	public void setTarget(int elevatorNumber, int target)
 			throws RemoteException {
-		if (elevatorNumber < 1 || elevatorNumber > 4)
+		if (elevatorNumber < 0 || elevatorNumber > 3)
 			throw new RemoteException("Not existing elevator number.");
 		else
-			if (target < 1 || target > 4)
+			if (target < 0 || target > 3)
 				throw new RemoteException("Not existing target.");
 			else{
-				targets[elevatorNumber-1] = target;
-				positions[elevatorNumber-1] = target;
+				targets[elevatorNumber] = target;
+				positions[elevatorNumber] = target;
 			}
 	}
 

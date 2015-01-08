@@ -51,13 +51,13 @@ public class ElevatorController implements Observer {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		if (arg1 instanceof Elevator) {
-			Elevator elevator = (Elevator) arg1;
+//			Elevator elevator = (Elevator) arg1;
 			if (automaticMode) {
 				int targetFloor = -1;
 				// Elevator Direction
@@ -72,7 +72,6 @@ public class ElevatorController implements Observer {
 
 				}
 			}
-		} else {
 		}
 	}
 

@@ -6,6 +6,8 @@ package at.fhooe.mc.view;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -35,17 +37,15 @@ public class TableViewControlPanel extends JPanel implements Observer,
 	private static final String ON_FLOOR_DOWN = "On Floor DOWN";
 	private static final String SET_TARGET = "Set Target";
 	private static final String CURRENT_POSITION = "Current Position";
-	// private static final String TARGET = "Target";
 
-	private JCheckBox inElFloor1CB, inElFloor2CB, inElFloor3CB, inElFloor4CB;
-	private JCheckBox onFlFloor1UpCB, onFlFloor2UpCB, onFlFloor3UpCB,
-			onFlFloor4UpCB;
-	private JCheckBox onFlFloor4DownCB, onFlFloor3DownCB, onFlFloor2DownCB,
-			onFlFloor1DownCB;
-	private JRadioButton targetFloor1RB, targetFloor2RB, targetFloor3RB,
-			targetFloor4RB;
-	private JRadioButton currentFloor1RB, currentFloor2RB, currentFloor3RB,
-			currentFloor4RB;
+	private int floorNr;
+
+	private List<JCheckBox> listInElFloor = new ArrayList<JCheckBox>();
+	private List<JCheckBox> listOnFloorUp = new ArrayList<JCheckBox>();
+	private List<JCheckBox> listOnFloorDown = new ArrayList<JCheckBox>();
+	private List<JRadioButton> listTargetFloor = new ArrayList<JRadioButton>();
+	private List<JRadioButton> listCurrentFloor = new ArrayList<JRadioButton>();
+
 	private ButtonGroup groupTargetRBs, groupCurrentFloorRBs;
 
 	private ElevatorController elevatorController;
@@ -53,11 +53,14 @@ public class TableViewControlPanel extends JPanel implements Observer,
 	/**
 	 *
 	 */
-	public TableViewControlPanel(ElevatorController controller) {
-		super.setLayout(new GridLayout(5, 6));
+	public TableViewControlPanel(ElevatorController controller, int floorNr) {
+		super.setLayout(new GridLayout(floorNr+1, 6));
 		this.setSize(400, 300);
-		initTableEntries();
 		elevatorController = controller;
+		this.floorNr = floorNr;
+		groupTargetRBs = new ButtonGroup();
+		groupCurrentFloorRBs = new ButtonGroup();
+		initTableEntries();
 	}
 
 	/**
@@ -65,131 +68,43 @@ public class TableViewControlPanel extends JPanel implements Observer,
 	 */
 	private void initTableEntries() {
 		setCaptions();
-		groupTargetRBs = new ButtonGroup();
-		groupCurrentFloorRBs = new ButtonGroup();
-		for (int i = 0; i < 4; i++) {
-			int floor = i + 1;
+		for (int i = floorNr; i > 0; i--) {
+			int floor = i;
 			addFloor(floor);
 		}
 
 	}
 
-	/**
-	 * @param i
-	 */
-	private void addFloor(int floor) {
+	private void addFloor(int floor){
+		add(new JLabel(""+floor));
 
-		switch (floor) {
+		JCheckBox elFloor = new JCheckBox();
+		elFloor.setEnabled(false);
+		listInElFloor.add(0,elFloor);
+		add(listInElFloor.get(0));
 
-		case 1:
-			add(new JLabel("" + floor));
+		JCheckBox floorUp = new JCheckBox();
+		floorUp.setEnabled(false);
+		listOnFloorUp.add(0,floorUp);
+		add(listOnFloorUp.get(0));
 
-			inElFloor1CB = new JCheckBox();
-			inElFloor1CB.setEnabled(false);
-			add(inElFloor1CB);
+		JCheckBox floorDown = new JCheckBox();
+		floorDown.setEnabled(false);
+		listOnFloorDown.add(0,floorDown);
+		add(listOnFloorDown.get(0));
 
-			onFlFloor1UpCB = new JCheckBox();
-			onFlFloor1UpCB.setEnabled(false);
-			add(onFlFloor1UpCB);
+		JRadioButton target = new JRadioButton();
+		target.setActionCommand("targetFloor"+floor);
+		target.addActionListener(this);
+		listTargetFloor.add(0,target);
+		add(listTargetFloor.get(0));
+		groupTargetRBs.add(listTargetFloor.get(0));
 
-			onFlFloor1DownCB = new JCheckBox();
-			onFlFloor1DownCB.setEnabled(false);
-			add(onFlFloor1DownCB);
-
-			targetFloor1RB = new JRadioButton();
-			targetFloor1RB.setActionCommand("targetFloor1");
-			targetFloor1RB.addActionListener(this);
-			add(targetFloor1RB);
-			groupTargetRBs.add(targetFloor1RB);
-
-			currentFloor1RB = new JRadioButton();
-			currentFloor1RB.setEnabled(false);
-			add(currentFloor1RB);
-			groupCurrentFloorRBs.add(currentFloor1RB);
-
-			break;
-		case 2:
-			add(new JLabel("" + floor));
-
-			inElFloor2CB = new JCheckBox();
-			inElFloor2CB.setEnabled(false);
-			add(inElFloor2CB);
-
-			onFlFloor2UpCB = new JCheckBox();
-			onFlFloor2UpCB.setEnabled(false);
-			add(onFlFloor2UpCB);
-
-			onFlFloor2DownCB = new JCheckBox();
-			onFlFloor2DownCB.setEnabled(false);
-			add(onFlFloor2DownCB);
-
-			targetFloor2RB = new JRadioButton();
-			targetFloor1RB.setActionCommand("targetFloor2");
-			targetFloor2RB.addActionListener(this);
-			add(targetFloor2RB);
-			groupTargetRBs.add(targetFloor2RB);
-
-			currentFloor2RB = new JRadioButton();
-			currentFloor2RB.setEnabled(false);
-			add(currentFloor2RB);
-			groupCurrentFloorRBs.add(currentFloor2RB);
-
-			break;
-		case 3:
-			add(new JLabel("" + floor));
-
-			inElFloor3CB = new JCheckBox();
-			inElFloor3CB.setEnabled(false);
-			add(inElFloor3CB);
-
-			onFlFloor3UpCB = new JCheckBox();
-			onFlFloor3UpCB.setEnabled(false);
-			add(onFlFloor3UpCB);
-
-			onFlFloor3DownCB = new JCheckBox();
-			onFlFloor3DownCB.setEnabled(false);
-			add(onFlFloor3DownCB);
-
-			targetFloor3RB = new JRadioButton();
-			targetFloor1RB.setActionCommand("targetFloor3");
-			targetFloor3RB.addActionListener(this);
-			add(targetFloor3RB);
-			groupTargetRBs.add(targetFloor3RB);
-
-			currentFloor3RB = new JRadioButton();
-			currentFloor3RB.setEnabled(false);
-			add(currentFloor3RB);
-			groupCurrentFloorRBs.add(currentFloor3RB);
-
-			break;
-		case 4:
-			add(new JLabel("" + floor));
-
-			inElFloor4CB = new JCheckBox();
-			inElFloor4CB.setEnabled(false);
-			add(inElFloor4CB);
-
-			onFlFloor4UpCB = new JCheckBox();
-			onFlFloor4UpCB.setEnabled(false);
-			add(onFlFloor4UpCB);
-
-			onFlFloor4DownCB = new JCheckBox();
-			onFlFloor4DownCB.setEnabled(false);
-			add(onFlFloor4DownCB);
-
-			targetFloor4RB = new JRadioButton();
-			targetFloor1RB.setActionCommand("targetFloor4");
-			targetFloor4RB.addActionListener(this);
-			add(targetFloor4RB);
-			groupTargetRBs.add(targetFloor4RB);
-
-			currentFloor4RB = new JRadioButton();
-			currentFloor4RB.setEnabled(false);
-			add(currentFloor4RB);
-			groupCurrentFloorRBs.add(currentFloor4RB);
-
-			break;
-		}
+		JRadioButton current = new JRadioButton();
+		current.setEnabled(false);
+		listCurrentFloor.add(0,current);
+		add(listCurrentFloor.get(0));
+		groupCurrentFloorRBs.add(listCurrentFloor.get(0));
 	}
 
 	/**
@@ -215,42 +130,13 @@ public class TableViewControlPanel extends JPanel implements Observer,
 		if (_object instanceof Elevator) {
 			Elevator elevator = (Elevator) _object;
 
-			inElFloor1CB.setSelected(elevator.getPressedButtonsElevator()[0]);
-			inElFloor2CB.setSelected(elevator.getPressedButtonsElevator()[1]);
-			inElFloor3CB.setSelected(elevator.getPressedButtonsElevator()[2]);
-			inElFloor4CB.setSelected(elevator.getPressedButtonsElevator()[3]);
-
-			onFlFloor1UpCB.setSelected(elevator.getPressedButtonsFloorUp()[0]);
-			onFlFloor2UpCB.setSelected(elevator.getPressedButtonsFloorUp()[1]);
-			onFlFloor3UpCB.setSelected(elevator.getPressedButtonsFloorUp()[2]);
-			onFlFloor4UpCB.setSelected(elevator.getPressedButtonsFloorUp()[3]);
-
-			onFlFloor1DownCB
-					.setSelected(elevator.getPressedButtonsFloorDown()[0]);
-			onFlFloor2DownCB
-					.setSelected(elevator.getPressedButtonsFloorDown()[1]);
-			onFlFloor3DownCB
-					.setSelected(elevator.getPressedButtonsFloorDown()[2]);
-			onFlFloor4DownCB
-					.setSelected(elevator.getPressedButtonsFloorDown()[3]);
-
-			switch (elevator.getPosition()) {
-			case 1:
-				currentFloor1RB.setSelected(true);
-				break;
-			case 2:
-				currentFloor2RB.setSelected(true);
-				break;
-			case 3:
-				currentFloor3RB.setSelected(true);
-				break;
-			case 4:
-				currentFloor4RB.setSelected(true);
-				break;
-			default:
-				currentFloor1RB.setSelected(true);
+			for (int i = 0; i < floorNr; i++){
+				listInElFloor.get(i).setSelected(elevator.getPressedButtonsElevator()[i]);
+				listOnFloorUp.get(i).setSelected(elevator.getPressedButtonsFloorUp()[i]);
+				listOnFloorDown.get(i).setSelected(elevator.getPressedButtonsFloorDown()[i]);
 			}
 
+			listCurrentFloor.get(elevator.getPosition()-1).setSelected(true);
 		} else {
 			JOptionPane.showMessageDialog(this, "Elevator was null");
 		}
@@ -263,17 +149,24 @@ public class TableViewControlPanel extends JPanel implements Observer,
 			JRadioButton button = (JRadioButton) e.getSource();
 
 			if (button.isSelected()) {
-				if (button.equals(targetFloor1RB))
-					elevatorController.setTarget(1);
-				if (button.equals(targetFloor2RB))
-					elevatorController.setTarget(2);
-				if (button.equals(targetFloor3RB))
-					elevatorController.setTarget(3);
-				if (button.equals(targetFloor4RB))
-					elevatorController.setTarget(4);
+				int i = 0;
+				while (!button.equals(listTargetFloor.get(i)))
+					i++;
+				if (i < listTargetFloor.size()){
+					elevatorController.setTarget(i+1);
+				}
 			}
 
 		}
 	}
 
+	public void setManualAutomaticMode(boolean automatic){
+		if (automatic){
+			for (int i = 0; i < floorNr; i++)
+				listTargetFloor.get(i).setEnabled(false);
+		} else {
+			for (int i = 0; i < floorNr; i++)
+				listTargetFloor.get(i).setEnabled(true);
+		}
+	}
 }
