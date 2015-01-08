@@ -28,7 +28,6 @@ public class ElevatorControllerGUI extends JFrame {
 	private static final long serialVersionUID = 6783651316064353006L;
 	private TableViewControlPanel tableViewControlPanel;
 	private ElevatorAttributesPanel elevatorAttributesPanel;
-	private ElevatorViewPanel elevatorViewPanel;
 	private JPanel flowLayout;
 	private static ElevatorUpdater elevatorUpdater;
 
@@ -73,16 +72,13 @@ public class ElevatorControllerGUI extends JFrame {
 
 		tableViewControlPanel = new TableViewControlPanel(controller, floorNr);
 		elevatorAttributesPanel = new ElevatorAttributesPanel(controller, tableViewControlPanel);
-		elevatorViewPanel = new ElevatorViewPanel();
 
 		flowLayout.add(tableViewControlPanel);
-		flowLayout.add(elevatorViewPanel);
 		flowLayout.add(elevatorAttributesPanel);
 		this.add(flowLayout);
 
 		elevatorUpdater = new ElevatorUpdater(adapter);
 		elevatorUpdater.addObserver(elevatorAttributesPanel);
-		elevatorUpdater.addObserver(elevatorViewPanel);
 		elevatorUpdater.addObserver(tableViewControlPanel);
 
 		new Thread(elevatorUpdater).start();
