@@ -37,7 +37,8 @@ public class TableViewControlPanel extends JPanel implements Observer,
 	private static final String ON_FLOOR_DOWN = "On Floor DOWN";
 	private static final String SET_TARGET = "Set Target";
 	private static final String CURRENT_POSITION = "Current Position";
-	// private static final String TARGET = "Target";
+
+	private int floorNr = 4;
 
 	private List<JCheckBox> listInElFloor = new ArrayList<JCheckBox>();
 	private List<JCheckBox> listOnFloorUp = new ArrayList<JCheckBox>();
@@ -52,11 +53,14 @@ public class TableViewControlPanel extends JPanel implements Observer,
 	/**
 	 *
 	 */
-	public TableViewControlPanel(ElevatorController controller) {
-		super.setLayout(new GridLayout(5, 6));
+	public TableViewControlPanel(ElevatorController controller, int floorNr) {
+		super.setLayout(new GridLayout(floorNr+1, 6));
 		this.setSize(400, 300);
-		initTableEntries();
 		elevatorController = controller;
+		this.floorNr = floorNr;
+		groupTargetRBs = new ButtonGroup();
+		groupCurrentFloorRBs = new ButtonGroup();
+		initTableEntries();
 	}
 
 	/**
@@ -64,9 +68,7 @@ public class TableViewControlPanel extends JPanel implements Observer,
 	 */
 	private void initTableEntries() {
 		setCaptions();
-		groupTargetRBs = new ButtonGroup();
-		groupCurrentFloorRBs = new ButtonGroup();
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < floorNr; i++) {
 			int floor = i + 1;
 			addFloor(floor);
 		}
@@ -128,7 +130,7 @@ public class TableViewControlPanel extends JPanel implements Observer,
 		if (_object instanceof Elevator) {
 			Elevator elevator = (Elevator) _object;
 
-			for (int i = 0; i < 4; i++){
+			for (int i = 0; i < floorNr; i++){
 				listInElFloor.get(i).setSelected(elevator.getPressedButtonsElevator()[i]);
 				listOnFloorUp.get(i).setSelected(elevator.getPressedButtonsFloorUp()[i]);
 				listOnFloorDown.get(i).setSelected(elevator.getPressedButtonsFloorDown()[i]);
@@ -160,10 +162,10 @@ public class TableViewControlPanel extends JPanel implements Observer,
 
 	public void setManualAutomaticMode(boolean automatic){
 		if (automatic){
-			for (int i = 0; i < 4; i++)
+			for (int i = 0; i < floorNr; i++)
 				listTargetFloor.get(i).setEnabled(false);
 		} else {
-			for (int i = 0; i < 4; i++)
+			for (int i = 0; i < floorNr; i++)
 				listTargetFloor.get(i).setEnabled(true);
 		}
 	}

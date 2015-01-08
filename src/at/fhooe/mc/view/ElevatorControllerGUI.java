@@ -64,8 +64,14 @@ public class ElevatorControllerGUI extends JFrame {
 			adapter.setiElevatorReference(new ElevatorMock());
 		}
 		ElevatorController controller = new ElevatorController(adapter);
+		int floorNr = 4;
+		try{
+			floorNr = adapter.getFloorNum();
+		} catch (Exception e){
+			JOptionPane.showMessageDialog(this, "FloorNr could not be get, use 4 as standard");
+		}
 
-		tableViewControlPanel = new TableViewControlPanel(controller);
+		tableViewControlPanel = new TableViewControlPanel(controller, floorNr);
 		elevatorAttributesPanel = new ElevatorAttributesPanel(controller, tableViewControlPanel);
 		elevatorViewPanel = new ElevatorViewPanel();
 
