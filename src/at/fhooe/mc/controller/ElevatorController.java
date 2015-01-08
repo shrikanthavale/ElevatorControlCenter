@@ -52,7 +52,7 @@ public class ElevatorController implements Observer {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
@@ -62,8 +62,8 @@ public class ElevatorController implements Observer {
 			if (automaticMode) {
 				if (currentTarget != elevator.getPosition()) {
 
-				} else {
-					setTarget(getNextPressedFloorInDrivingDirection(elevator));
+				}else{
+				setTarget(getNextPressedFloorInDrivingDirection(elevator));
 				}
 			}
 		}
