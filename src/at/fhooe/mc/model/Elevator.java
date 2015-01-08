@@ -60,11 +60,6 @@ public class Elevator {
 	  */
 	 private int target;
 	 
-	 /**
-	  * elevator is at which floor currently
-	  */
-	 private int currentFloor;
-
 	/**
 	 * @return the currentDirection
 	 */
@@ -214,20 +209,5 @@ public class Elevator {
 		this.target = target;
 	}
 
-	/**
-	 * @return the currentFloor
-	 */
-	public int getCurrentFloor() {
-		return currentFloor;
-	}
-
-	/**
-	 * @param currentFloor the currentFloor to set
-	 */
-	public void setCurrentFloor(int currentFloor) {
-		this.currentFloor = currentFloor;
-	}
-	
-	
 
 }

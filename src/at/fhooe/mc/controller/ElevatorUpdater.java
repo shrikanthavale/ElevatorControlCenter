@@ -54,7 +54,6 @@ public class ElevatorUpdater extends Observable implements Runnable {
 				elevator.setSpeed(adapter.getElevatorSpeed(1));
 				elevator.setWeight(adapter.getElevatorWeight(1));
 				elevator.setTarget(adapter.getTarget(1));
-				elevator.setCurrentFloor(adapter.getElevatorFloor(1));
 
 				setChanged();
 				notifyObservers();
