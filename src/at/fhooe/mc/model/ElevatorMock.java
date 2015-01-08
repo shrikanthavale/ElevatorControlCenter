@@ -163,13 +163,13 @@ public class ElevatorMock implements IElevator {
 
 		switch (elevatorNumber) {
 		case 0:
-			elevatorDoorStatus = ELEVATOR_DOORS_CLOSED;
+			elevatorDoorStatus = ELEVATOR_DOORS_OPEN;
 			break;
 		case 1:
 			elevatorDoorStatus = ELEVATOR_DOORS_OPENING;
 			break;
 		case 2:
-			elevatorDoorStatus = ELEVATOR_DOORS_OPEN;
+			elevatorDoorStatus = ELEVATOR_DOORS_CLOSED;
 			break;
 		case 3:
 			elevatorDoorStatus = ELEVATOR_DOORS_CLOSING;
