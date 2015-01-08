@@ -235,8 +235,8 @@ public class ElevatorAttributesPanel extends JPanel implements Observer, ActionL
 				lblDirection.setText(ELEVATOR_DIRECTION_NOT_SET);
 			}
 
-			lblSpeed.setText(""+elevator.getSpeed());
-			lblPayload.setText(""+elevator.getWeight());
+			lblSpeed.setText(""+elevator.getSpeed() + "feet/second");
+			lblPayload.setText(""+elevator.getWeight()+" lbs");
 		}
 	}
 
