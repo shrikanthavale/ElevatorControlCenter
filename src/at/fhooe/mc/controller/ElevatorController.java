@@ -90,6 +90,7 @@ public class ElevatorController implements Observer {
 	 */
 	private int getNextPressedFloorInDrivingDirection(Elevator elevator) {
 		int targetFloor = -1;
+
 		while (targetFloor == -1) {
 			if (elevator.getCurrentDirection() == IElevatorControls.ELEVATOR_DIRECTION_UP) {
 				// Get Pressed Buttons Floor Up, which are in current Elevator
@@ -169,7 +170,7 @@ public class ElevatorController implements Observer {
 					targetFloor = 0;
 					elevator.setCurrentDirection(IElevatorControls.ELEVATOR_DIRECTION_UP);
 				} else {
-
+					elevator.setCurrentDirection(IElevatorControls.ELEVATOR_DIRECTION_UP);
 				}
 
 			}
