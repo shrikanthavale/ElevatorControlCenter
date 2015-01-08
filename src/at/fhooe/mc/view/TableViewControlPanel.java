@@ -38,7 +38,7 @@ public class TableViewControlPanel extends JPanel implements Observer,
 	private static final String SET_TARGET = "Set Target";
 	private static final String CURRENT_POSITION = "Current Position";
 
-	private int floorNr = 4;
+	private int floorNr;
 
 	private List<JCheckBox> listInElFloor = new ArrayList<JCheckBox>();
 	private List<JCheckBox> listOnFloorUp = new ArrayList<JCheckBox>();
@@ -68,8 +68,8 @@ public class TableViewControlPanel extends JPanel implements Observer,
 	 */
 	private void initTableEntries() {
 		setCaptions();
-		for (int i = 0; i < floorNr; i++) {
-			int floor = i + 1;
+		for (int i = floorNr; i > 0; i--) {
+			int floor = i;
 			addFloor(floor);
 		}
 
@@ -80,31 +80,31 @@ public class TableViewControlPanel extends JPanel implements Observer,
 
 		JCheckBox elFloor = new JCheckBox();
 		elFloor.setEnabled(false);
-		listInElFloor.add(elFloor);
-		add(listInElFloor.get(floor-1));
+		listInElFloor.add(0,elFloor);
+		add(listInElFloor.get(0));
 
 		JCheckBox floorUp = new JCheckBox();
 		floorUp.setEnabled(false);
-		listOnFloorUp.add(floorUp);
-		add(listOnFloorUp.get(floor-1));
+		listOnFloorUp.add(0,floorUp);
+		add(listOnFloorUp.get(0));
 
 		JCheckBox floorDown = new JCheckBox();
 		floorDown.setEnabled(false);
-		listOnFloorDown.add(floorDown);
-		add(listOnFloorDown.get(floor-1));
+		listOnFloorDown.add(0,floorDown);
+		add(listOnFloorDown.get(0));
 
 		JRadioButton target = new JRadioButton();
 		target.setActionCommand("targetFloor"+floor);
 		target.addActionListener(this);
-		listTargetFloor.add(target);
-		add(listTargetFloor.get(floor-1));
-		groupTargetRBs.add(listTargetFloor.get(floor-1));
+		listTargetFloor.add(0,target);
+		add(listTargetFloor.get(0));
+		groupTargetRBs.add(listTargetFloor.get(0));
 
 		JRadioButton current = new JRadioButton();
 		current.setEnabled(false);
-		listCurrentFloor.add(current);
-		add(listCurrentFloor.get(floor-1));
-		groupCurrentFloorRBs.add(listCurrentFloor.get(floor-1));
+		listCurrentFloor.add(0,current);
+		add(listCurrentFloor.get(0));
+		groupCurrentFloorRBs.add(listCurrentFloor.get(0));
 	}
 
 	/**

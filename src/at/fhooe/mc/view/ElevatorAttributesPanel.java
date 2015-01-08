@@ -3,7 +3,6 @@
  */
 package at.fhooe.mc.view;
 
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -77,7 +76,7 @@ public class ElevatorAttributesPanel extends JPanel implements Observer, ActionL
 
 		add(new JLabel(ELEVATOR_MODE));
 		JPanel p = new JPanel();
-		p.setLayout(new FlowLayout());
+		p.setLayout(new GridLayout(1,2));
 		bgrMode = new ButtonGroup();
 		cheManual = new JRadioButton();
 		cheManual.addActionListener(this);
