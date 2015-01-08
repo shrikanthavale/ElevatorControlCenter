@@ -59,7 +59,7 @@ public class ElevatorControllerGUI extends JFrame {
 		try {
 			adapter.setiElevatorReference((IElevator) Naming.lookup("rmi://localhost/ElevatorSim"));
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Simulator not running");
+			JOptionPane.showMessageDialog(this, "Simulator not running so the Mock Element is used instead");
 			adapter.setiElevatorReference(new ElevatorMock());
 		}
 		ElevatorController controller = new ElevatorController(adapter);
