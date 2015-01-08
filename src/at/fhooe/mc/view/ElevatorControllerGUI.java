@@ -16,7 +16,7 @@ import sqelevator.IElevator;
 import at.fhooe.mc.controller.ElevatorAdapter;
 import at.fhooe.mc.controller.ElevatorController;
 import at.fhooe.mc.controller.ElevatorUpdater;
-import at.fhooe.mc.controller.test.ElevatorMock;
+import at.fhooe.mc.model.ElevatorMock;
 
 /**
  * @author Viktor Baier S1310455001

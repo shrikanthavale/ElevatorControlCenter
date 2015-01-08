@@ -1,7 +1,7 @@
 /**
  *
  */
-package at.fhooe.mc.controller.test;
+package at.fhooe.mc.model;
 
 import java.rmi.RemoteException;
 import java.util.Random;
