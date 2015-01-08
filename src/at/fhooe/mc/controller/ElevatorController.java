@@ -62,8 +62,8 @@ public class ElevatorController implements Observer {
 			if (automaticMode) {
 				if (currentTarget != elevator.getPosition()) {
 
-				} else {
-					setTarget(getNextPressedFloorInDrivingDirection(elevator));
+				}else{
+				setTarget(getNextPressedFloorInDrivingDirection(elevator));
 				}
 			} else {
 				currentTarget = elevator.getTarget();
