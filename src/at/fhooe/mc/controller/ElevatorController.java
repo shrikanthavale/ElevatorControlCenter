@@ -59,29 +59,9 @@ public class ElevatorController implements Observer {
 		if (arg1 instanceof Elevator) {
 			Elevator elevator = (Elevator) arg1;
 			if (automaticMode) {
-				int targetFloor = -1;
-				// Elevator Direction
-				if (elevator.getCurrentDirection() == IElevatorControls.ELEVATOR_DIRECTION_UP) {
-
-					int nextFloorInDrivingDirection = getNextPressedFloorInDrivingDirection(elevator);
-					int nextInElevatorTargetInDrivingDirection = getNextInElevatorTargetInDrivingDirection(elevator);
-
-				} else if (elevator.getCurrentDirection() == IElevatorControls.ELEVATOR_DIRECTION_DOWN) {
-
-				} else {
-
-				}
+				setTarget(getNextPressedFloorInDrivingDirection(elevator));
 			}
 		}
-	}
-
-	/**
-	 * @param currentDirection
-	 * @return
-	 */
-	private int getNextInElevatorTargetInDrivingDirection(Elevator elevator) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	/**
