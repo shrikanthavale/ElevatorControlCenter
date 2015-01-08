@@ -66,7 +66,7 @@ public class ElevatorControllerGUI extends JFrame {
 		ElevatorController controller = new ElevatorController(adapter);
 
 		tableViewControlPanel = new TableViewControlPanel(controller);
-		elevatorAttributesPanel = new ElevatorAttributesPanel(controller);
+		elevatorAttributesPanel = new ElevatorAttributesPanel(controller, tableViewControlPanel);
 		elevatorViewPanel = new ElevatorViewPanel();
 
 		flowLayout.add(tableViewControlPanel);

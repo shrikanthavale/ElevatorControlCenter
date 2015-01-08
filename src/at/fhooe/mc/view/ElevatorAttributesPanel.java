@@ -54,11 +54,13 @@ public class ElevatorAttributesPanel extends JPanel implements Observer, ActionL
 	private ButtonGroup bgrMode;
 
 	private ElevatorController elevatorController;
+	private TableViewControlPanel tableView;
 
-	public ElevatorAttributesPanel(ElevatorController controller) {
+	public ElevatorAttributesPanel(ElevatorController controller, TableViewControlPanel table) {
 		setLayout(new GridLayout(6, 2));
 		initTableEntries();
 		elevatorController = controller;
+		tableView = table;
 	}
 
 	/**
@@ -244,10 +246,14 @@ public class ElevatorAttributesPanel extends JPanel implements Observer, ActionL
 			JRadioButton button = (JRadioButton)arg0.getSource();
 
 			if (button.isSelected()){
-				if (button.equals(cheManual))
+				if (button.equals(cheManual)){
 					elevatorController.setAutomaticMode(false);
-				if (button.equals(cheAutomatic))
+					tableView.setManualAutomaticMode(false);
+				}
+				if (button.equals(cheAutomatic)){
 					elevatorController.setAutomaticMode(true);
+					tableView.setManualAutomaticMode(true);
+				}
 			}
 		}
 
