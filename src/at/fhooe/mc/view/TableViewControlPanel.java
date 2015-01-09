@@ -81,20 +81,24 @@ public class TableViewControlPanel extends JPanel implements Observer,
 
 		JCheckBox elFloor = new JCheckBox();
 		elFloor.setEnabled(false);
+		elFloor.setName("listInElFloor" + floor);
 		listInElFloor.add(0,elFloor);
 		add(listInElFloor.get(0));
 
 		JCheckBox floorUp = new JCheckBox();
 		floorUp.setEnabled(false);
+		floorUp.setName("listOnFloorUp" + floor);
 		listOnFloorUp.add(0,floorUp);
 		add(listOnFloorUp.get(0));
 
 		JCheckBox floorDown = new JCheckBox();
 		floorDown.setEnabled(false);
+		floorDown.setName("listOnFloorDown" + floor);
 		listOnFloorDown.add(0,floorDown);
 		add(listOnFloorDown.get(0));
 
 		JRadioButton target = new JRadioButton();
+		target.setName("listTargetFloor" + floor);
 		target.setActionCommand("targetFloor"+floor);
 		target.addActionListener(this);
 		if (floor == 1){
@@ -106,6 +110,7 @@ public class TableViewControlPanel extends JPanel implements Observer,
 
 		JRadioButton current = new JRadioButton();
 		current.setEnabled(false);
+		current.setName("listCurrentFloor" + floor);
 		listCurrentFloor.add(0,current);
 		add(listCurrentFloor.get(0));
 		groupCurrentFloorRBs.add(listCurrentFloor.get(0));

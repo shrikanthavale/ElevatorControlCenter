@@ -24,7 +24,7 @@ public class ElevatorAttributesPanel extends JPanel implements Observer, ActionL
 
 	private static final long serialVersionUID = 9111311437016062774L;
 
-	private static final String TARGET = "Target: ";
+	public static final String TARGET = "Target: ";
 	private static final String DOOR_STATUS = "Door Status: ";
 	private static final String DOOR_STATUS_OPEN = "open";
 	private static final String DOOR_STATUS_OPENING = "opening";
@@ -68,6 +68,7 @@ public class ElevatorAttributesPanel extends JPanel implements Observer, ActionL
 	private void initTableEntries() {
 		add(new JLabel(TARGET));
 		lblTarget = new JLabel();
+		lblTarget.setName("labeltarget");
 		add(lblTarget);
 
 		add(new JLabel(DOOR_STATUS));
@@ -79,12 +80,14 @@ public class ElevatorAttributesPanel extends JPanel implements Observer, ActionL
 		p.setLayout(new GridLayout(1,2));
 		bgrMode = new ButtonGroup();
 		cheManual = new JRadioButton();
+		cheManual.setName(MANUAL);
 		cheManual.addActionListener(this);
 		cheManual.setText(MANUAL);
 		cheManual.setSelected(true);
 		bgrMode.add(cheManual);
 		p.add(cheManual);
 		cheAutomatic = new JRadioButton();
+		cheAutomatic.setName(AUTOMATIC);
 		cheAutomatic.addActionListener(this);
 		cheAutomatic.setText(AUTOMATIC);
 		bgrMode.add(cheAutomatic);
