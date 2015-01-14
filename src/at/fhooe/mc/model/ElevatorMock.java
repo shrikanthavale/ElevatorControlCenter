@@ -302,7 +302,7 @@ public class ElevatorMock implements IElevator {
 
 		switch (elevatorNumber) {
 		case 0:
-			elevatorCapacity = 0;
+			elevatorCapacity = 15;
 			break;
 		case 1:
 			elevatorCapacity = 5;

@@ -41,12 +41,12 @@ public class ElevatorAttributesPanel extends JPanel implements Observer, ActionL
 	private static final String ELEVATOR_SPEED = "Speed: ";
 	private static final String PAYLOAD = "Payload: ";
 
-	private String targetFloor = "";
-	private String doorState = "";
-	private String mode = "";
-	private String elevatorDirection = "";
-	private String elevatorSpeed = "";
-	private String payload = "";
+//	private String targetFloor = "";
+//	private String doorState = "";
+//	private String mode = "";
+//	private String elevatorDirection = "";
+//	private String elevatorSpeed = "";
+//	private String payload = "";
 
 	private JLabel lblTarget, lblDoorState, lblDirection, lblSpeed, lblPayload;
 	private JRadioButton cheManual, cheAutomatic;
@@ -106,96 +106,6 @@ public class ElevatorAttributesPanel extends JPanel implements Observer, ActionL
 		lblPayload = new JLabel();
 		add(lblPayload);
 
-	}
-
-	/**
-	 * @return the targetFloor
-	 */
-	public String getTargetFloor() {
-		return targetFloor;
-	}
-
-	/**
-	 * @param targetFloor
-	 *            the targetFloor to set
-	 */
-	public void setTargetFloor(String targetFloor) {
-		this.targetFloor = targetFloor;
-	}
-
-	/**
-	 * @return the doorState
-	 */
-	public String getDoorState() {
-		return doorState;
-	}
-
-	/**
-	 * @param doorState
-	 *            the doorState to set
-	 */
-	public void setDoorState(String doorState) {
-		this.doorState = doorState;
-	}
-
-	/**
-	 * @return the mode
-	 */
-	public String getMode() {
-		return mode;
-	}
-
-	/**
-	 * @param mode
-	 *            the mode to set
-	 */
-	public void setMode(String mode) {
-		this.mode = mode;
-	}
-
-	/**
-	 * @return the elevatorDirection
-	 */
-	public String getElevatorDirection() {
-		return elevatorDirection;
-	}
-
-	/**
-	 * @param elevatorDirection
-	 *            the elevatorDirection to set
-	 */
-	public void setElevatorDirection(String elevatorDirection) {
-		this.elevatorDirection = elevatorDirection;
-	}
-
-	/**
-	 * @return the elevatorSpeed
-	 */
-	public String getElevatorSpeed() {
-		return elevatorSpeed;
-	}
-
-	/**
-	 * @param elevatorSpeed
-	 *            the elevatorSpeed to set
-	 */
-	public void setElevatorSpeed(String elevatorSpeed) {
-		this.elevatorSpeed = elevatorSpeed;
-	}
-
-	/**
-	 * @return the payload
-	 */
-	public String getPayload() {
-		return payload;
-	}
-
-	/**
-	 * @param payload
-	 *            the payload to set
-	 */
-	public void setPayload(String payload) {
-		this.payload = payload;
 	}
 
 	/*

@@ -6,8 +6,6 @@ package at.fhooe.mc.controller;
 import java.rmi.RemoteException;
 import java.util.Observable;
 
-import javax.swing.JOptionPane;
-
 import at.fhooe.mc.model.Elevator;
 
 /**

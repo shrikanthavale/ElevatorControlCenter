@@ -18,7 +18,7 @@ public class ElevatorController implements Observer {
 	private IElevatorControls iElevatorControlsReference;
 	private boolean automaticMode = false;
 	private int currentTarget = 1;
-	private static final int CURRENT_DIRECTION_UNDEFINED = 0;
+//	private static final int CURRENT_DIRECTION_UNDEFINED = 0;
 	private static final int CURRENT_DIRECTION_UP = 1;
 	private static final int CURRENT_DIRECTION_DOWN = 2;
 	private int autoModeCurrentDirection = 1;
