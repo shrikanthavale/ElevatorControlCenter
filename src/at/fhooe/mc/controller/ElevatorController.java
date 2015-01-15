@@ -41,22 +41,9 @@ public class ElevatorController implements Observer {
 		}
 	}
 
-	public void setTargetAutomaticMode(Elevator _elevator) {
-		// _elevator.getCapacity();
-		// _elevator.getCurrentDirection();
-		// _elevator.getDoorStatus();
-		// _elevator.getPosition();
-		// _elevator.getPressedButtonsElevator();
-		// _elevator.getPressedButtonsFloorDown();
-		// _elevator.getPressedButtonsFloorUp();
-		// _elevator.getSpeed();
-		// _elevator.getTarget();
-		// _elevator.getWeight();
-	}
-
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
