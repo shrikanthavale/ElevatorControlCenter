@@ -32,7 +32,7 @@ public class ElevatorController implements Observer {
 			iElevatorControlsReference.setTarget(1, target);
 			if (currPos < target)
 				iElevatorControlsReference.setCommittedDirection(1, IElevatorControls.ELEVATOR_DIRECTION_UP);
-			else if(currPos > target)
+			else if (currPos > target)
 				iElevatorControlsReference.setCommittedDirection(1, IElevatorControls.ELEVATOR_DIRECTION_DOWN);
 			else
 				iElevatorControlsReference.setCommittedDirection(1, IElevatorControls.ELEVATOR_DIRECTION_UNCOMMITTED);
@@ -44,7 +44,7 @@ public class ElevatorController implements Observer {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
@@ -133,6 +133,11 @@ public class ElevatorController implements Observer {
 				}
 
 			}
+		}
+		if (autoModeCurrentDirection != ElevatorController.CURRENT_DIRECTION_DOWN
+				&& autoModeCurrentDirection != ElevatorController.CURRENT_DIRECTION_UP) {
+			autoModeCurrentDirection = ElevatorController.CURRENT_DIRECTION_UP;
+			targetFloor = 1;
 		}
 		currentTarget = targetFloor;
 		return targetFloor;
