@@ -28,17 +28,9 @@ public class ElevatorController implements Observer {
 
 	public void setTarget(int target) {
 		try {
-			int currPos = iElevatorControlsReference.getElevatorFloor(1);
 			iElevatorControlsReference.setTarget(1, target);
-			if (currPos < target)
-				iElevatorControlsReference.setCommittedDirection(1, IElevatorControls.ELEVATOR_DIRECTION_UP);
-			else if(currPos > target)
-				iElevatorControlsReference.setCommittedDirection(1, IElevatorControls.ELEVATOR_DIRECTION_DOWN);
-			else
-				iElevatorControlsReference.setCommittedDirection(1, IElevatorControls.ELEVATOR_DIRECTION_UNCOMMITTED);
-
 		} catch (RemoteException e) {
-			// TODO
+
 		}
 	}
 
@@ -63,6 +55,18 @@ public class ElevatorController implements Observer {
 				}
 			} else {
 				currentTarget = elevator.getTarget();
+				try{
+					if (elevator.getPosition() < currentTarget)
+						iElevatorControlsReference.setCommittedDirection(1, IElevatorControls.ELEVATOR_DIRECTION_UP);
+					if (elevator.getPosition() > currentTarget)
+						iElevatorControlsReference.setCommittedDirection(1, IElevatorControls.ELEVATOR_DIRECTION_DOWN);
+					if(currentTarget == elevator.getPosition() && (currentTarget == iElevatorControlsReference.getFloorNum() || currentTarget == 1))
+						iElevatorControlsReference.setCommittedDirection(1, IElevatorControls.ELEVATOR_DIRECTION_UNCOMMITTED);
+
+				} catch (Exception e){
+
+				}
+
 			}
 		}
 	}
@@ -134,6 +138,11 @@ public class ElevatorController implements Observer {
 
 			}
 		}
+//		if (autoModeCurrentDirection != ElevatorController.CURRENT_DIRECTION_DOWN
+//				&& autoModeCurrentDirection != ElevatorController.CURRENT_DIRECTION_UP) {
+//			autoModeCurrentDirection = ElevatorController.CURRENT_DIRECTION_UP;
+//			targetFloor = 1;
+//		}
 		currentTarget = targetFloor;
 		return targetFloor;
 	}
