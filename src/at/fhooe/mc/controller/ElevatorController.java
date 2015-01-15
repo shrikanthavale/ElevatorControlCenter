@@ -18,7 +18,6 @@ public class ElevatorController implements Observer {
 	private IElevatorControls iElevatorControlsReference;
 	private boolean automaticMode = false;
 	private int currentTarget = 1;
-//	private static final int CURRENT_DIRECTION_UNDEFINED = 0;
 	private static final int CURRENT_DIRECTION_UP = 1;
 	private static final int CURRENT_DIRECTION_DOWN = 2;
 	private int autoModeCurrentDirection = 1;
@@ -135,21 +134,6 @@ public class ElevatorController implements Observer {
 
 			}
 		}
-		// if (elevator.getCurrentDirection() ==
-		// IElevatorControls.ELEVATOR_DIRECTION_UNCOMMITTED) {
-		// if (elevator.getWeight() == 0) {
-		// }
-		// if (elevator.getPressedButtonsElevator().length == 0 &&
-		// elevator.getPressedButtonsFloorDown().length == 0
-		// && elevator.getPressedButtonsFloorUp().length == 0) {
-		// targetFloor = 0;
-		// elevator.setCurrentDirection(IElevatorControls.ELEVATOR_DIRECTION_UP);
-		// } else {
-		// elevator.setCurrentDirection(IElevatorControls.ELEVATOR_DIRECTION_UP);
-		// targetFloor = 0;
-		// }
-		//
-		// }
 		currentTarget = targetFloor;
 		return targetFloor;
 	}
