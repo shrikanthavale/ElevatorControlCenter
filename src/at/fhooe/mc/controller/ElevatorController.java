@@ -138,11 +138,12 @@ public class ElevatorController implements Observer {
 
 			}
 		}
-//		if (autoModeCurrentDirection != ElevatorController.CURRENT_DIRECTION_DOWN
-//				&& autoModeCurrentDirection != ElevatorController.CURRENT_DIRECTION_UP) {
-//			autoModeCurrentDirection = ElevatorController.CURRENT_DIRECTION_UP;
-//			targetFloor = 1;
-//		}
+
+		if (autoModeCurrentDirection != ElevatorController.CURRENT_DIRECTION_DOWN
+				&& autoModeCurrentDirection != ElevatorController.CURRENT_DIRECTION_UP) {
+			autoModeCurrentDirection = ElevatorController.CURRENT_DIRECTION_UP;
+			targetFloor = 1;
+		}
 		currentTarget = targetFloor;
 		return targetFloor;
 	}
