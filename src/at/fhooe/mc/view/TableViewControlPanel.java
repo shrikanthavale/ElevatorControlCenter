@@ -22,7 +22,10 @@ import at.fhooe.mc.controller.ElevatorController;
 import at.fhooe.mc.model.Elevator;
 
 /**
- * @author Viktor Baier S1310455001
+ * The contorl panel showing floor numbers, buttons pressed in the elevator, 
+ * radio buttons for setting target floor, and radio button showing current floor.
+ * 
+ * @author Metrics_Testing Team
  */
 public class TableViewControlPanel extends JPanel implements Observer,
 		ActionListener {
@@ -31,28 +34,84 @@ public class TableViewControlPanel extends JPanel implements Observer,
 	 *
 	 */
 	private static final long serialVersionUID = 6199634431619829199L;
+	
+	/**
+	 * constant for the Floor
+	 */
 	private static final String FLOOR = "Floor";
+
+	/**
+	 * constant for the Inside elevetor controls
+	 */
 	private static final String INSIDE_ELEVATOR_CONTROLS = "Inside Elevator Controls";
+	
+	/**
+	 * constant for the Floor up
+	 */
 	private static final String ON_FLOOR_UP = "On Floor UP";
+
+	/**
+	 * constant for the Floor Down
+	 */
 	private static final String ON_FLOOR_DOWN = "On Floor DOWN";
+
+	/**
+	 * constant for the set target
+	 */
 	private static final String SET_TARGET = "Set Target";
+
+	/**
+	 * constant for the current position
+	 */
 	private static final String CURRENT_POSITION = "Current Position";
 
+	/**
+	 * capturing floor number
+	 */
 	private int floorNr;
-	boolean connection = true;
+	
+	/**
+	 * check if connection is available or not
+	 */
+	private boolean connection = true;
 
+	/**
+	 * list for buttons pressed inside floor 
+	 */
 	private List<JCheckBox> listInElFloor = new ArrayList<JCheckBox>();
+	
+	/**
+	 * list of up buttons pressed outside the elevator
+	 */
 	private List<JCheckBox> listOnFloorUp = new ArrayList<JCheckBox>();
+	
+	/**
+	 * list of down buttons pressed outside elevators
+	 */
 	private List<JCheckBox> listOnFloorDown = new ArrayList<JCheckBox>();
+	
+	/**
+	 * list of target floors , that can be set in elevator
+	 */
 	private List<JRadioButton> listTargetFloor = new ArrayList<JRadioButton>();
+	
+	/**
+	 * list of current floor
+	 */
 	private List<JRadioButton> listCurrentFloor = new ArrayList<JRadioButton>();
 
+	/**
+	 * radio buttons grouped (target and current floor radio button)
+	 */
 	private ButtonGroup groupTargetRBs, groupCurrentFloorRBs;
 
+	/**
+	 * elevator controller
+	 */
 	private ElevatorController elevatorController;
 
 	/**
-	 *
+	 * constructor for initializing the top view control panel
 	 */
 	public TableViewControlPanel(ElevatorController controller, int floorNr) {
 		super.setLayout(new GridLayout(floorNr+1, 6));
@@ -65,7 +124,7 @@ public class TableViewControlPanel extends JPanel implements Observer,
 	}
 
 	/**
-	 *
+	 * dynamically creating number of floors
 	 */
 	private void initTableEntries() {
 		setCaptions();
@@ -76,27 +135,40 @@ public class TableViewControlPanel extends JPanel implements Observer,
 
 	}
 
+	/**
+	 * Add floor, adding floor contains adding a label for floor, infloor button pressed
+	 * up and down button pressed outside elevator, radio buttons for setting the target
+	 * radio buttons for showing current position of elevator.
+	 * 
+	 * @param floor floor number to be added
+	 */
 	private void addFloor(int floor){
+		
+		// label for floor
 		add(new JLabel(""+floor));
 
+		// inside elevator button pressed
 		JCheckBox elFloor = new JCheckBox();
 		elFloor.setEnabled(false);
 		elFloor.setName("listInElFloor" + floor);
 		listInElFloor.add(0,elFloor);
 		add(listInElFloor.get(0));
 
+		// outside up button pressed
 		JCheckBox floorUp = new JCheckBox();
 		floorUp.setEnabled(false);
 		floorUp.setName("listOnFloorUp" + floor);
 		listOnFloorUp.add(0,floorUp);
 		add(listOnFloorUp.get(0));
 
+		// outside down button pressed
 		JCheckBox floorDown = new JCheckBox();
 		floorDown.setEnabled(false);
 		floorDown.setName("listOnFloorDown" + floor);
 		listOnFloorDown.add(0,floorDown);
 		add(listOnFloorDown.get(0));
 
+		//radio button for setting this floor as target
 		JRadioButton target = new JRadioButton();
 		target.setName("listTargetFloor" + floor);
 		target.setActionCommand("targetFloor"+floor);
@@ -108,6 +180,7 @@ public class TableViewControlPanel extends JPanel implements Observer,
 		add(listTargetFloor.get(0));
 		groupTargetRBs.add(listTargetFloor.get(0));
 
+		// radio button for indicating if elevator is at current floor
 		JRadioButton current = new JRadioButton();
 		current.setEnabled(false);
 		current.setName("listCurrentFloor" + floor);
@@ -117,7 +190,7 @@ public class TableViewControlPanel extends JPanel implements Observer,
 	}
 
 	/**
-	 *
+	 * set the heading of individual columns in UI.
 	 */
 	private void setCaptions() {
 		// set Caption Row
@@ -136,6 +209,9 @@ public class TableViewControlPanel extends JPanel implements Observer,
 	 */
 	@Override
 	public void update(Observable o, Object _object) {
+		
+		// update the data obtained from observable 
+		// 
 		if (_object instanceof Elevator) {
 			connection = true;
 			Elevator elevator = (Elevator) _object;
@@ -148,6 +224,7 @@ public class TableViewControlPanel extends JPanel implements Observer,
 
 			listCurrentFloor.get(elevator.getPosition()-1).setSelected(true);
 		} else {
+			// check if connection is lost
 			if (connection){
 				JOptionPane.showMessageDialog(this, "Lost connection to Emulator, so the status is not updated anymore!");
 				connection = false;
@@ -173,6 +250,12 @@ public class TableViewControlPanel extends JPanel implements Observer,
 		}
 	}
 
+	/**
+	 * Enable or disable the target floors radio button based on the elevator is in 
+	 * automatic or manual mode
+	 * 
+	 * @param automatic - true if automatic mode, false if manual mode
+	 */
 	public void setManualAutomaticMode(boolean automatic){
 		if (automatic){
 			for (int i = 0; i < floorNr; i++)
