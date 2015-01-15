@@ -33,8 +33,10 @@ public class ElevatorController implements Observer {
 			iElevatorControlsReference.setTarget(1, target);
 			if (currPos < target)
 				iElevatorControlsReference.setCommittedDirection(1, IElevatorControls.ELEVATOR_DIRECTION_UP);
-			else
+			else if(currPos > target)
 				iElevatorControlsReference.setCommittedDirection(1, IElevatorControls.ELEVATOR_DIRECTION_DOWN);
+			else
+				iElevatorControlsReference.setCommittedDirection(1, IElevatorControls.ELEVATOR_DIRECTION_UNCOMMITTED);
 
 		} catch (RemoteException e) {
 			// TODO
