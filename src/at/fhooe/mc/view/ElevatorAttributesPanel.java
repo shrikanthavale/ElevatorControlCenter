@@ -18,7 +18,10 @@ import at.fhooe.mc.controller.ElevatorController;
 import at.fhooe.mc.model.Elevator;
 
 /**
- * @author Viktor Baier S1310455001
+ * This class creates a panel containing information obtained from elevator simulator. Information like Target,
+ * Door status, Mode, Elevator Direction, and Speed.
+ * 
+ * @author Metrics_Testing Team Dec 17, 2014
  */
 public class ElevatorAttributesPanel extends JPanel implements Observer, ActionListener {
 
@@ -40,13 +43,6 @@ public class ElevatorAttributesPanel extends JPanel implements Observer, ActionL
 	private static final String ELEVATOR_DIRECTION_NOT_SET = "not set";
 	private static final String ELEVATOR_SPEED = "Speed: ";
 	private static final String PAYLOAD = "Payload: ";
-
-//	private String targetFloor = "";
-//	private String doorState = "";
-//	private String mode = "";
-//	private String elevatorDirection = "";
-//	private String elevatorSpeed = "";
-//	private String payload = "";
 
 	private JLabel lblTarget, lblDoorState, lblDirection, lblSpeed, lblPayload;
 	private JRadioButton cheManual, cheAutomatic;
